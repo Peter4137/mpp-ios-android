@@ -9,8 +9,3 @@ expect fun platformName(): String
 fun createApplicationScreenMessage(): String {
     return "Kotlin Rocks on ${platformName()}"
 }
-
-suspend fun fetchFares(client: HttpClient, apiCall: String) {
-    val response: HttpResponse = client.get(apiCall)
-    println(response)
-}
