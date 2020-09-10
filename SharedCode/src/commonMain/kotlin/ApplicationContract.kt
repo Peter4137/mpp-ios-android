@@ -6,6 +6,7 @@ interface ApplicationContract {
     interface View {
         fun setLabel(text: String)
         fun setDepatureDropdown()
+        fun setArrivalDropdown()
     }
 
     abstract class Presenter: CoroutineScope {

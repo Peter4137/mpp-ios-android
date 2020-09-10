@@ -2,7 +2,7 @@
 .gradle
 build/
 *.iml
-
+.DS_Store
 local.properties
 
 *xcuserdata
