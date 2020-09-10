@@ -15,11 +15,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
         view.setLabel(createApplicationScreenMessage())
-        view.setDepatureDropdown()
+        view.setDepartureDropdown()
         view.setArrivalDropdown()
     }
 
-    override fun onButtonTapped(departureStation: String, arrivalStation: String) {
-        view?.setLabel(departureStation.plus(arrivalStation))
+    override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
+        this.view = view
+        view.setLabel(departureStation.plus(arrivalStation))
     }
 }

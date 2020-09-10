@@ -2,11 +2,10 @@ package com.jetbrains.handson.mpp.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Spinner
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Button
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
@@ -16,13 +15,23 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
+
+        val button = findViewById<Button>(R.id.button)
+        button.setOnClickListener {
+            val departureSpinner: Spinner = findViewById(R.id.departure_spinner)
+            val departureStation = departureSpinner.selectedItem.toString()
+            val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
+            val arrivalStation = arrivalSpinner.selectedItem.toString()
+
+            presenter.onButtonTapped(departureStation, arrivalStation, this)
+        }
     }
 
     override fun setLabel(text: String) {
         findViewById<TextView>(R.id.main_text).text = text
     }
 
-     override fun setDepatureDropdown(){
+     override fun setDepartureDropdown(){
         val spinner: Spinner = findViewById(R.id.departure_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
@@ -52,13 +61,4 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
-    fun dropdownButtonPressed(view: View) {
-        val presenter = ApplicationPresenter()
-        val departureSpinner: Spinner = findViewById(R.id.departure_spinner)
-        val departureStation = departureSpinner.selectedItem.toString()
-        val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
-        val arrivalStation = arrivalSpinner.selectedItem.toString()
-
-        presenter.onButtonTapped(departureStation, arrivalStation)
-    }
 }
