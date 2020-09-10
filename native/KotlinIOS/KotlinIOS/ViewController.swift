@@ -1,7 +1,8 @@
 import UIKit
 import SharedCode
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ApplicationContractView {
     
     @IBOutlet private var label: UILabel!
     @IBOutlet weak var departurePicker: UIPickerView!
@@ -30,9 +31,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         return stationData[row]
     }
     
-}
-
-extension ViewController: ApplicationContractView {
+    
+    @IBAction func departureButton(_ sender: Any) {
+        let departureStation = stationData[departurePicker.selectedRow(inComponent: 0)]
+        let arrivalStation = stationData[arrivalPicker.selectedRow(inComponent: 0)]
+        setLabel(text: departureStation)
+        let urlString: String = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/\(departureStation)/\(arrivalStation)/#LiveDepResults"
+        let urlComponents = URLComponents (string: urlString)!
+        UIApplication.shared.open (urlComponents.url!)
+        
+    }
+    
     func setDepartureDropdown() {
         return
     }
@@ -44,7 +53,9 @@ extension ViewController: ApplicationContractView {
     func setArrivalDropdown() {
         return
     }
+    
 }
+    
 
 
 

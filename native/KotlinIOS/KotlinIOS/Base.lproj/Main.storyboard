@@ -26,6 +26,9 @@
                                 <rect key="frame" x="184" y="589" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="departureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HJQ-Ap-F6b"/>
+                                </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mg5-Jz-IOc">
                                 <rect key="frame" x="0.0" y="321" width="414" height="67"/>
