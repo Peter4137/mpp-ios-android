@@ -2,13 +2,10 @@
 <resources>
     <string name="app_name">KotlinMPP</string>
     <string-array name="stations_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>KGX</item>
+        <item>WNS</item>
+        <item>WKM</item>
+        <item>GLD</item>
+        <item>WOK</item>
     </string-array>
 </resources>
