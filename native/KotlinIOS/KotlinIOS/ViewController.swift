@@ -29,11 +29,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBAction func departureButton(_ sender: Any) {
-        let departureStation = stationData[departurePicker.selectedRow(inComponent: 0)]
-        let arrivalStation = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        let urlString: String = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/\(departureStation)/\(arrivalStation)/#LiveDepResults"
-        let urlComponents = URLComponents (string: urlString)!
-        UIApplication.shared.open (urlComponents.url!)
+        let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
+        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
+//        let urlString: String = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/\(departureStation)/\(arrivalStation)/#LiveDepResults"
+//        let urlComponents = URLComponents (string: urlString)!
+//        UIApplication.shared.open (urlComponents.url!)
+        presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
         
     }
     

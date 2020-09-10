@@ -26,10 +26,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
             val arrivalStation = arrivalSpinner.selectedItem.toString()
 
-            val openURL = Intent(Intent.ACTION_VIEW)
-            val linkToOpen = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/$departureStation/$arrivalStation/#LiveDepResults"
-            openURL.data = Uri.parse(linkToOpen)
-            startActivity(openURL)
+//            val openURL = Intent(Intent.ACTION_VIEW)
+//            val linkToOpen = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/$departureStation/$arrivalStation/#LiveDepResults"
+//            openURL.data = Uri.parse(linkToOpen)
+//            startActivity(openURL)
 
             presenter.onButtonTapped(departureStation, arrivalStation, this)
         }
