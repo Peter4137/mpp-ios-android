@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KotlinMPP</string>
-    <string-array name="stations_array">
-        <item>KGX</item>
-        <item>WNS</item>
-        <item>WKM</item>
-        <item>GLD</item>
-        <item>WOK</item>
-    </string-array>
 </resources>

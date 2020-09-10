@@ -5,8 +5,8 @@ import kotlinx.coroutines.CoroutineScope
 interface ApplicationContract {
     interface View {
         fun setLabel(text: String)
-        fun setDepartureDropdown()
-        fun setArrivalDropdown()
+        fun setDepartureDropdown(stationList: List<String>)
+        fun setArrivalDropdown(stationList: List<String>)
     }
 
     abstract class Presenter: CoroutineScope {

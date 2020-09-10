@@ -14,9 +14,10 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
+        val stationList = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
         view.setLabel(createApplicationScreenMessage())
-        view.setDepartureDropdown()
-        view.setArrivalDropdown()
+        view.setDepartureDropdown(stationList)
+        view.setArrivalDropdown(stationList)
     }
 
     override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
