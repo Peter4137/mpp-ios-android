@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         findViewById<TextView>(R.id.main_text).text = text
     }
 
-     fun setDropdown(){
+     override fun setDepatureDropdown(){
         val spinner: Spinner = findViewById(R.id.departure_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
