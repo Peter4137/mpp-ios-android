@@ -2,29 +2,28 @@ import UIKit
 import SharedCode
 
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ApplicationContractView {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ApplicationContractView, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet private var label: UILabel!
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
     
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
-    var stationData: [String] = [String]()
-    var departuresData: [String] = [String]()
+    private var stationData: [String] = [String]()
+    private var departuresData: [String] = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.onViewTaken(view: self)
         
     }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return stationData.count
     }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return stationData[row]
     }
@@ -33,11 +32,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func departureButton(_ sender: Any) {
         let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
         let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-//        let urlString: String = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/\(departureStation)/\(arrivalStation)/#LiveDepResults"
-//        let urlComponents = URLComponents (string: urlString)!
-//        UIApplication.shared.open (urlComponents.url!)
         presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
-        
     }
     
     func setDepartureDropdown(stationList: Array<String>) {
@@ -45,11 +40,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.departurePicker.dataSource = self
         stationData = stationList
     }
-    
     func setLabel(text: String) {
         label.text = text
     }
-    
     func setArrivalDropdown(stationList: Array<String>) {
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
@@ -57,11 +50,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-    @IBOutlet weak var departuresTable: UITableView!
     
+    @IBOutlet weak var tableView: UITableView!
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.reloadData()
+    }
     func populateDeparturesTable(departuresList: Array<String>){
         departuresData = departuresList
-        setLabel(text: departuresData[0])
+        setupTableView()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -69,13 +68,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return departuresData.count
     }
+    func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel!.text = departuresData[indexPath.row]
+        return cell
+    }
     
 }
-    
-
-
-
-
-
-
-
