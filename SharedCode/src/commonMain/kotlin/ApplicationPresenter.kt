@@ -41,7 +41,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
-            view.setLabel(jsonString.outboundJourneys[0].arrivalTime)
+            println(jsonString)
+            view.setLabel(jsonString.outboundJourneys[0].departureTime)
         }
     }
 }
@@ -54,5 +55,5 @@ data class DepartureDetails(
 )
 @Serializable
 data class JourneyDetails(
-    val arrivalTime: String
+    val departureTime: String
 )
