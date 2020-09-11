@@ -11,7 +11,8 @@ class TableAdapter(private val departures: MutableList<departureInformation>):
 
     class TableViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         val departureTime: TextView = itemView.findViewById<TextView>(R.id.time_text_view)
-        val departureDuration: TextView = itemView.findViewById(R.id.duration_text_view)
+        val journeyDuration: TextView = itemView.findViewById(R.id.duration_text_view)
+        val journeyOperator: TextView = itemView.findViewById(R.id.trainOperator_text_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -27,8 +28,11 @@ class TableAdapter(private val departures: MutableList<departureInformation>):
         val timeTextView = holder.departureTime
         timeTextView.text = timeValue
         val durationValue = departures[position].journeyTime
-        val durationTextView = holder.departureDuration
+        val durationTextView = holder.journeyDuration
         durationTextView.text = durationValue
+        val trainOperatorValue = departures[position].trainOperator
+        val trainOperatorTextView = holder.journeyOperator
+        trainOperatorTextView.text = trainOperatorValue
 
     }
 
