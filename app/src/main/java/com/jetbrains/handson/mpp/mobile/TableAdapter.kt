@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TableAdapter(private val departureTimes: MutableList<String>):
+class TableAdapter(private val departures: MutableList<departureInformation>):
     RecyclerView.Adapter<TableAdapter.TableViewHolder>() {
 
     class TableViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
-        val departureTime: TextView = itemView.findViewById<TextView>(R.id.text_view)
+        val departureTime: TextView = itemView.findViewById<TextView>(R.id.time_text_view)
+        val departureDuration: TextView = itemView.findViewById(R.id.duration_text_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -22,13 +23,17 @@ class TableAdapter(private val departureTimes: MutableList<String>):
 
     override fun onBindViewHolder(holder: TableViewHolder, position: Int) {
         // get actual data from shared here
-        val cellValue = departureTimes[position]
-        val textView = holder.departureTime
-        textView.text = cellValue
+        val timeValue = departures[position].departureTime + " - " + departures[position].arrivalTime
+        val timeTextView = holder.departureTime
+        timeTextView.text = timeValue
+        val durationValue = departures[position].journeyTime
+        val durationTextView = holder.departureDuration
+        durationTextView.text = durationValue
+
     }
 
     override fun getItemCount(): Int {
-        return departureTimes.size
+        return departures.size
     }
 
 }
