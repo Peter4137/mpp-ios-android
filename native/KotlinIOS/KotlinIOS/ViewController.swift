@@ -10,6 +10,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     var stationData: [String] = [String]()
+    var departuresData: [String] = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.onViewTaken(view: self)
@@ -52,6 +54,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         stationData = stationList
+    }
+    
+    
+    @IBOutlet weak var departuresTable: UITableView!
+    
+    func populateDeparturesTable(departuresList: Array<String>){
+        departuresData = departuresList
+        setLabel(text: departuresData[0])
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return departuresData.count
     }
     
 }

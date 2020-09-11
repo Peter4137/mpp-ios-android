@@ -63,4 +63,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
+    override fun populateDeparturesTable(departuresList: List<String>){
+        setLabel(departuresList[0])
+    }
+
 }
