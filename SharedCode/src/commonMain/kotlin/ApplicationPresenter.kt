@@ -41,9 +41,18 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
-            println(jsonString)
-            view.setLabel(jsonString.outboundJourneys[0].departureTime)
+            //val formatter = SimpleDateFormat("hh:mm")
+            val departureTimes: MutableList<String> = mutableListOf()
+            for (i in 0..5){
+                //val formattedDate = formatter.format(jsonString.outboundJourneys[0].departureTime)
+                //departureTimes.add(formattedDate.toString())
+                departureTimes.add(jsonString.outboundJourneys[i].departureTime)
+            }
+            view.populateDeparturesTable(departureTimes)
         }
+
+
+
     }
 }
 
