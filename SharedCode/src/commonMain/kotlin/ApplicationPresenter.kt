@@ -46,7 +46,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             val departures: MutableList<departureInformation> = mutableListOf()
             val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
             val timeForm = DateFormat("HH:mm")
-            for (i in 0..4){
+            var numOfResults = 5
+            if (jsonString.outboundJourneys.count() < numOfResults){
+                numOfResults = jsonString.outboundJourneys.count()
+            } //still sometimes getting index out of bounds exceptions
+            val maxIndexForResults = numOfResults-1
+            for (i in 0..maxIndexForResults){
                 val jsonDepartureTime = jsonString.outboundJourneys[i].departureTime
                 val jsonArrivalTime = jsonString.outboundJourneys[i].arrivalTime
                 val formattedDeparture = receivedDateTimeFormat.parse(jsonDepartureTime)
