@@ -1,9 +1,6 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.DateFormat
-import com.soywiz.klock.DateTime
-import com.soywiz.klock.DateTimeTz
-import com.soywiz.klock.parse
+import com.soywiz.klock.*
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
@@ -46,14 +43,30 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
-            val departureTimes: MutableList<String> = mutableListOf()
-            val departureDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
+            val departures: MutableList<departureInformation> = mutableListOf()
+//            val departureTimes: MutableList<String> = mutableListOf()
+            val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
             val timeForm = DateFormat("HH:mm")
             for (i in 0..4){
-                val formattedDate = departureDateTimeFormat.parse(jsonString.outboundJourneys[i].departureTime)
-                departureTimes.add(formattedDate.format(timeForm))
+                val jsonDepartureTime = jsonString.outboundJourneys[i].departureTime
+                val jsonArrivalTime = jsonString.outboundJourneys[i].arrivalTime
+                val formattedDeparture = receivedDateTimeFormat.parse(jsonDepartureTime)
+                val formattedArrival = receivedDateTimeFormat.parse(jsonArrivalTime)
+                val journeyTime: TimeSpan = formattedArrival - formattedDeparture
+                val journeyTimeMinutes: String = "${journeyTime.minutes}m"
+                val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
+                val priceInPounds: Double = jsonString.outboundJourneys[i].tickets[0].priceInPennies as Double / 100
+                val price: String = "£$priceInPounds"
+
+                departures.add(departureInformation(
+                    departureTime = formattedDeparture.format(timeForm),
+                    arrivalTime = formattedArrival.format(timeForm),
+                    journeyTime = journeyTimeMinutes,
+                    trainOperator = trainOperator,
+                    price = price)
+                )
             }
-            view.populateDeparturesTable(departureTimes)
+            view.populateDeparturesTable(departures)
         }
 
 
@@ -67,5 +80,26 @@ data class DepartureDetails(
 )
 @Serializable
 data class JourneyDetails(
-    val departureTime: String
+    val departureTime: String,
+    val arrivalTime: String,
+    val primaryTrainOperator: TrainOperatorDetails,
+    val tickets: List<TicketDetails>
+)
+
+@Serializable
+data class TrainOperatorDetails(
+    val name: String
+)
+
+@Serializable
+data class TicketDetails(
+    val priceInPennies: Int
+)
+
+data class departureInformation(
+    val departureTime: String,
+    val arrivalTime: String,
+    val journeyTime: String,
+    val trainOperator: String,
+    val price: String
 )
