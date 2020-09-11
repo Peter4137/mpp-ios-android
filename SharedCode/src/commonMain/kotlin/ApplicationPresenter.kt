@@ -47,8 +47,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 }
 
-//val serializer = Json(JsonConfiguration(ignoreUnknownKeys = true))
-
 @Serializable
 data class DepartureDetails(
     val outboundJourneys : List<JourneyDetails>
