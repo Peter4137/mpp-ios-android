@@ -49,7 +49,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             var numOfResults = 5
             if (jsonString.outboundJourneys.count() < numOfResults){
                 numOfResults = jsonString.outboundJourneys.count()
-            } //still sometimes getting index out of bounds exceptions
+            }
             val maxIndexForResults = numOfResults-1
             for (i in 0..maxIndexForResults){
                 val jsonDepartureTime = jsonString.outboundJourneys[i].departureTime
