@@ -1,15 +1,21 @@
 package com.jetbrains.handson.mpp.mobile
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Spinner
 import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private lateinit var departureTimes: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,18 +26,20 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-
             val departureSpinner: Spinner = findViewById(R.id.departure_spinner)
             val departureStation = departureSpinner.selectedItem.toString()
             val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
             val arrivalStation = arrivalSpinner.selectedItem.toString()
-
-//            val openURL = Intent(Intent.ACTION_VIEW)
-//            val linkToOpen = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/$departureStation/$arrivalStation/#LiveDepResults"
-//            openURL.data = Uri.parse(linkToOpen)
-//            startActivity(openURL)
-
             presenter.onButtonTapped(departureStation, arrivalStation, this)
+        }
+
+        departureTimes = mutableListOf()
+
+        viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
+        viewAdapter = TableAdapter(departureTimes)
+        recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
     }
 
@@ -63,8 +71,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
-    override fun populateDeparturesTable(departuresList: List<String>){
-        setLabel(departuresList[0])
+    override fun populateDeparturesTable(departuresList: List<String>) {
+        departureTimes.addAll(departuresList)
+        viewAdapter.notifyDataSetChanged()
     }
 
 }
