@@ -3,6 +3,7 @@ package com.jetbrains.handson.mpp.mobile
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTime
 import com.soywiz.klock.DateTimeTz
+import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
@@ -11,6 +12,7 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
+
 
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
@@ -32,7 +34,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
         this.view = view
-        //change time to now
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
@@ -45,11 +46,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
-            //val formatter = SimpleDateFormat("hh:mm")
             val departureTimes: MutableList<String> = mutableListOf()
-            for (i in 0..5){
-                //val formattedDate = formatter.format(jsonString.outboundJourneys[0].departureTime)
-                //departureTimes.add(formattedDate.toString())
+            val departureDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
+            val timeForm = DateFormat("HH:mm")
+            for (i in 0..4){
+                val formattedDate = departureDateTimeFormat.parse(jsonString.outboundJourneys[0].departureTime)
+                departureTimes.add(formattedDate.format(timeForm))
                 departureTimes.add(jsonString.outboundJourneys[i].departureTime)
             }
             view.populateDeparturesTable(departureTimes)
