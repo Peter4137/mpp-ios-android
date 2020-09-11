@@ -50,9 +50,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             val departureDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
             val timeForm = DateFormat("HH:mm")
             for (i in 0..4){
-                val formattedDate = departureDateTimeFormat.parse(jsonString.outboundJourneys[0].departureTime)
+                val formattedDate = departureDateTimeFormat.parse(jsonString.outboundJourneys[i].departureTime)
                 departureTimes.add(formattedDate.format(timeForm))
-                departureTimes.add(jsonString.outboundJourneys[i].departureTime)
             }
             view.populateDeparturesTable(departureTimes)
         }
