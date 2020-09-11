@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         departureTimes = mutableListOf()
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
         viewAdapter = TableAdapter(departureTimes)
         recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
             layoutManager = viewManager
