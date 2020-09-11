@@ -56,10 +56,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.reloadData()
     }
     func populateDeparturesTable(departuresList: Array<String>){
         departuresData = departuresList
         setupTableView()
+        
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
