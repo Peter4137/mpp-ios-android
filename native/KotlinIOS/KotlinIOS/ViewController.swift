@@ -61,7 +61,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func populateDeparturesTable(departuresList: Array<String>){
         departuresData = departuresList
         setupTableView()
-        
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
