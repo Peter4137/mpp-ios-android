@@ -97,3 +97,4 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         return receivedDateTimeFormat.parse(dateTime)
     }
 }
+
