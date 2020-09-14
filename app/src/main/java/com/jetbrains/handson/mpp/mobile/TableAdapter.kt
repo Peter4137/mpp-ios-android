@@ -13,8 +13,10 @@ class TableAdapter(private val departureTimes: MutableList<String>):
         val departureTime: TextView = itemView.findViewById<TextView>(R.id.text_view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): TableAdapter.TableViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TableAdapter.TableViewHolder {
         val cellView = LayoutInflater.from(parent.context)
             .inflate(R.layout.cell_view, parent, false)
         return TableViewHolder(cellView)

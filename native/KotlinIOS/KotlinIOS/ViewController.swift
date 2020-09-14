@@ -1,21 +1,42 @@
 import UIKit
 import SharedCode
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ApplicationContractView, UITableViewDelegate, UITableViewDataSource {
-    
-    @IBOutlet private var label: UILabel!
+
+class ViewController: UIViewController, ApplicationContractView {
+
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
-    
+    @IBOutlet private var label: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
-    private var stationData: [String] = [String]()
-    private var departuresData: [DepartureInformation] = [DepartureInformation]()
+    private var stationData: [String] = []
+    private var departuresData: [DepartureInformation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.onViewTaken(view: self)
-        
+        self.departurePicker.delegate = self
+        self.departurePicker.dataSource = self
+        self.arrivalPicker.delegate = self
+        self.arrivalPicker.dataSource = self
+        setupTableView()
     }
+    
+    
+    @IBAction func departureButton(_ sender: Any) {
+        let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
+        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
+        presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
+    }
+    
+    func setLabel(text: String) {
+        label.text = text
+    }
+    
+}
+
+extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -26,38 +47,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return stationData[row]
     }
-    
-    
-    @IBAction func departureButton(_ sender: Any) {
-        let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
-        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
-    }
-    
     func setDepartureDropdown(stationList: Array<String>) {
-        self.departurePicker.delegate = self
-        self.departurePicker.dataSource = self
         stationData = stationList
-    }
-    func setLabel(text: String) {
-        label.text = text
     }
     func setArrivalDropdown(stationList: Array<String>) {
-        self.arrivalPicker.delegate = self
-        self.arrivalPicker.dataSource = self
         stationData = stationList
     }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var tableView: UITableView!
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.reloadData()
     }
-    func populateDeparturesTable(departuresList: Array<DepartureInformation>){
+
+    func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
-        setupTableView()
+        reloadData()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
