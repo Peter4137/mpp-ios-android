@@ -6,7 +6,6 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import kotlinx.coroutines.*
-import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
 
@@ -68,38 +67,5 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             }
             view.populateDeparturesTable(departures)
         }
-
-
-
     }
 }
-
-@Serializable
-data class DepartureDetails(
-    val outboundJourneys : List<JourneyDetails>
-)
-@Serializable
-data class JourneyDetails(
-    val departureTime: String,
-    val arrivalTime: String,
-    val primaryTrainOperator: TrainOperatorDetails,
-    val tickets: List<TicketDetails>
-)
-
-@Serializable
-data class TrainOperatorDetails(
-    val name: String
-)
-
-@Serializable
-data class TicketDetails(
-    val priceInPennies: Int
-)
-
-data class DepartureInformation(
-    val departureTime: String,
-    val arrivalTime: String,
-    val journeyTime: String,
-    val trainOperator: String,
-    val price: String
-)
