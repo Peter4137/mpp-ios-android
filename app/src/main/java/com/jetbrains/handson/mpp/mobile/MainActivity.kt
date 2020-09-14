@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         presenter.onViewTaken(this)
 
         val button = findViewById<Button>(R.id.button)
-        val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
-        loadingSpinner.visibility = View.INVISIBLE
+
         button.setOnClickListener {
-            toggleLoadingSpinner()
+            populateDeparturesTable(mutableListOf())
+            showLoadingSpinner()
             presenter.onButtonTapped()
         }
         
@@ -87,19 +87,20 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
-        toggleLoadingSpinner()
+        hideLoadingSpinner()
         departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
         recyclerView.smoothScrollToPosition(0);
     }
 
-    private fun toggleLoadingSpinner() {
+    private fun showLoadingSpinner() {
         val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
-        if (loadingSpinner.visibility == View.VISIBLE) {
-            loadingSpinner.visibility = View.INVISIBLE
-        } else {
-            loadingSpinner.visibility = View.VISIBLE
-        }
+        loadingSpinner.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingSpinner() {
+        val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
+        loadingSpinner.visibility = View.INVISIBLE
     }
 }
