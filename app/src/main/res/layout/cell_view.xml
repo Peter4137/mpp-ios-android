@@ -10,8 +10,7 @@
         android:id="@+id/time_text_view"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_weight="1"
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,33 +20,24 @@
         android:id="@+id/duration_text_view"
         android:layout_width="275dp"
         android:layout_height="20dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_text_view" />
 
     <TextView
         android:id="@+id/trainOperator_text_view"
         android:layout_width="275dp"
         android:layout_height="20dp"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/duration_text_view"
         app:layout_constraintTop_toBottomOf="@+id/duration_text_view" />
 
     <TextView
         android:id="@+id/price_text_view"
         android:layout_width="135dp"
         android:layout_height="40dp"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
+        android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/duration_text_view"
-        app:layout_constraintRight_toRightOf="@+id/time_text_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/duration_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/time_text_view"
         tools:layout_editor_absoluteY="20dp" />
 
     <View
