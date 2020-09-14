@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TableAdapter(private val departures: MutableList<departureInformation>):
+class TableAdapter(private val departures: MutableList<DepartureInformation>):
     RecyclerView.Adapter<TableAdapter.TableViewHolder>() {
 
     class TableViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {

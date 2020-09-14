@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private lateinit var departures: MutableList<departureInformation>
+    private lateinit var departures: MutableList<DepartureInformation>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

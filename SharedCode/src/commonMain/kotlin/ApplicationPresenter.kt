@@ -34,11 +34,11 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped() {
-        if (departureStation == arrivalStation) return
+        if (chosenDepartureStation == chosenArrivalStation) return
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$departureStation&destinationStation=$arrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
 
         val client = HttpClient() {
             install(JsonFeature) {
@@ -51,7 +51,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             try{
                 jsonString = client.get(apiCall)
             } catch (e: Exception){
-                view.setLabel("API Call Failed")
+                view!!.setLabel("API Call Failed")
             }
             val departures: MutableList<DepartureInformation> = mutableListOf()
             var numOfResults = 5
@@ -83,7 +83,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val trainOperator = journeyDetails.primaryTrainOperator.name
         lateinit var price: String
                 price = try{
-                    val priceInPounds = jsonString.outboundJourneys[i].tickets[0].priceInPennies.toDouble() / 100
+                    val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
                     val df = DecimalFormat("#.00")
                     val roundedPriceInPounds = df.format(priceInPounds)
                     "£$roundedPriceInPounds"
