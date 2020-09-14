@@ -1,7 +1,6 @@
 import UIKit
 import SharedCode
 
-
 class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, ApplicationContractView, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet private var label: UILabel!
@@ -10,7 +9,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = [String]()
-    private var departuresData: [String] = [String]()
+    private var departuresData: [DepartureInformation] = [DepartureInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +48,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         stationData = stationList
     }
     
-    
-    
     @IBOutlet weak var tableView: UITableView!
     func setupTableView() {
         tableView.delegate = self
@@ -58,7 +55,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.reloadData()
     }
-    func populateDeparturesTable(departuresList: Array<String>){
+    func populateDeparturesTable(departuresList: Array<DepartureInformation>){
         departuresData = departuresList
         setupTableView()
     }
@@ -70,9 +67,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     func tableView(_ tableView: UITableView,
                  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = departuresData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "departureCell", for: indexPath) as! DeparturesTableViewCell
+        let departure = departuresData[indexPath.row]
+        cell.departureLabel!.text = departure.departureTime
+        cell.arrivalLabel!.text = departure.arrivalTime
+        cell.durationLabel!.text = departure.journeyTime
+        cell.priceLabel!.text = departure.price
+        cell.operatorLabel!.text = departure.trainOperator
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0;//Choose your custom row height
+    }
 }
