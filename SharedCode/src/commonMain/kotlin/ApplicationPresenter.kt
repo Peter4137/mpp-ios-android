@@ -43,14 +43,10 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
             val departures: MutableList<DepartureInformation> = mutableListOf()
-//            val departureTimes: MutableList<String> = mutableListOf()
-            val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
             val timeForm = DateFormat("HH:mm")
             for (i in 0..4){
-                val jsonDepartureTime = jsonString.outboundJourneys[i].departureTime
-                val jsonArrivalTime = jsonString.outboundJourneys[i].arrivalTime
-                val formattedDeparture = receivedDateTimeFormat.parse(jsonDepartureTime)
-                val formattedArrival = receivedDateTimeFormat.parse(jsonArrivalTime)
+                val formattedDeparture = processTimeForDisplay(jsonString.outboundJourneys[i].departureTime)
+                val formattedArrival = processTimeForDisplay(jsonString.outboundJourneys[i].arrivalTime)
                 val journeyTime: TimeSpan = formattedArrival - formattedDeparture
                 val journeyTimeMinutes: String = "${journeyTime.minutes}m"
                 val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
@@ -67,5 +63,10 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             }
             view.populateDeparturesTable(departures)
         }
+    }
+
+    override fun processTimeForDisplay(dateTime: String): DateTimeTz {
+        val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
+        return receivedDateTimeFormat.parse(dateTime)
     }
 }
