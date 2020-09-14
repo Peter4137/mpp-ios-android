@@ -47,22 +47,16 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
 
         launch {
-            lateinit var jsonString: DepartureDetails
-            try{
-                jsonString = client.get(apiCall)
-            } catch (e: Exception){
+            try {
+                var departureDetails: DepartureDetails = client.get(apiCall)
+                val departures: MutableList<DepartureInformation> = mutableListOf()
+                for (journey in departureDetails.outboundJourneys){
+                    departures.add(buildDepartureInformation(journey))
+                }
+                view!!.populateDeparturesTable(departures)
+            } catch (e: Exception) {
                 view!!.setLabel("API Call Failed")
             }
-            val departures: MutableList<DepartureInformation> = mutableListOf()
-            var numOfResults = 5
-            if (jsonString.outboundJourneys.count() < numOfResults){
-                numOfResults = jsonString.outboundJourneys.count()
-            }
-            val maxIndexForResults = numOfResults-1
-            for (i in 0..maxIndexForResults){
-                departures.add(buildDepartureInformation(jsonString.outboundJourneys[i]))
-            }
-            view!!.populateDeparturesTable(departures)
         }
     }
 
@@ -81,13 +75,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
         val journeyTimeMinutes: String = "${journeyTime.minutes}m"
         val trainOperator = journeyDetails.primaryTrainOperator.name
-        lateinit var price: String
-                price = try{
+        var price = try{
                     val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
                     val df = DecimalFormat("#.00")
                     val roundedPriceInPounds = df.format(priceInPounds)
                     "£$roundedPriceInPounds"
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     "N/A"
                 }
         return DepartureInformation(

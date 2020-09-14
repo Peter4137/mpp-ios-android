@@ -19,7 +19,7 @@ class TableAdapter(private val departures: MutableList<DepartureInformation>):
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TableAdapter.TableViewHolder {
+    ): TableViewHolder {
         val cellView = LayoutInflater.from(parent.context)
             .inflate(R.layout.cell_view, parent, false)
         return TableViewHolder(cellView)
