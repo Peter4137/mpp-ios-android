@@ -7,5 +7,5 @@ import io.ktor.client.statement.HttpResponse
 expect fun platformName(): String
 
 fun createApplicationScreenMessage(): String {
-    return "Kotlin Rocks on ${platformName()}"
+    return "TrainBoard"
 }
