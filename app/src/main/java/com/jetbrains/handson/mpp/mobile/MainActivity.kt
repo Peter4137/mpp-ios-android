@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private lateinit var departureTimes: MutableList<String>
+    private lateinit var departures: MutableList<DepartureInformation>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +47,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             }
         }
 
-        departureTimes = mutableListOf()
+        departures = mutableListOf()
 
         viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
-        viewAdapter = TableAdapter(departureTimes)
+        viewAdapter = TableAdapter(departures)
         recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
             layoutManager = viewManager
             adapter = viewAdapter
@@ -86,7 +86,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
-        departureTimes.add(departuresList[0].arrivalTime)
+        departures.clear()
+        departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
+        recyclerView.smoothScrollToPosition(0);
     }
 }

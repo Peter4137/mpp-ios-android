@@ -1,15 +1,17 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.*
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTimeTz
+import com.soywiz.klock.TimeSpan
+import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
+import java.text.DecimalFormat
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
-
-
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
 
@@ -32,10 +34,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped() {
+        if (chosenDepartureStation == chosenArrivalStation) return
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
         val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+
         val client = HttpClient() {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(Json.nonstrict)
@@ -43,12 +47,16 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
 
         launch {
-            val jsonString = client.get<DepartureDetails>(apiCall)
-            val departures: MutableList<DepartureInformation> = mutableListOf()
-            for (i in 0..4){
-                departures.add(buildDepartureInformation(jsonString.outboundJourneys[i]))
+            try {
+                var departureDetails: DepartureDetails = client.get(apiCall)
+                val departures: MutableList<DepartureInformation> = mutableListOf()
+                for (journey in departureDetails.outboundJourneys) {
+                    departures.add(buildDepartureInformation(journey))
+                }
+                view!!.populateDeparturesTable(departures)
+            } catch (e: Exception) {
+                view!!.setLabel("API Call Failed")
             }
-            view!!.populateDeparturesTable(departures)
         }
     }
 
@@ -67,8 +75,14 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
         val journeyTimeMinutes: String = "${journeyTime.minutes}m"
         val trainOperator = journeyDetails.primaryTrainOperator.name
-        val priceInPounds: Double = journeyDetails.tickets[0].priceInPennies as Double / 100
-        val price = "£$priceInPounds"
+        var price = try {
+            val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
+            val df = DecimalFormat("#.00")
+            val roundedPriceInPounds = df.format(priceInPounds)
+            "£$roundedPriceInPounds"
+        } catch (e: Exception) {
+            "N/A"
+        }
         return DepartureInformation(
             departureTime = departureDateTime.format(timeForm),
             arrivalTime = arrivalDateTime.format(timeForm),
