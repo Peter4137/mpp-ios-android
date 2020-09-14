@@ -45,17 +45,17 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             val departures: MutableList<DepartureInformation> = mutableListOf()
             val timeForm = DateFormat("HH:mm")
             for (i in 0..4){
-                val formattedDeparture = processTimeForDisplay(jsonString.outboundJourneys[i].departureTime)
-                val formattedArrival = processTimeForDisplay(jsonString.outboundJourneys[i].arrivalTime)
-                val journeyTime: TimeSpan = formattedArrival - formattedDeparture
+                val departureDateTime = processTimeForDisplay(jsonString.outboundJourneys[i].departureTime)
+                val arrivalDateTime = processTimeForDisplay(jsonString.outboundJourneys[i].arrivalTime)
+                val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
                 val journeyTimeMinutes: String = "${journeyTime.minutes}m"
                 val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
                 val priceInPounds: Double = jsonString.outboundJourneys[i].tickets[0].priceInPennies as Double / 100
                 val price: String = "£$priceInPounds"
 
                 departures.add(DepartureInformation(
-                    departureTime = formattedDeparture.format(timeForm),
-                    arrivalTime = formattedArrival.format(timeForm),
+                    departureTime = departureDateTime.format(timeForm),
+                    arrivalTime = arrivalDateTime.format(timeForm),
                     journeyTime = journeyTimeMinutes,
                     trainOperator = trainOperator,
                     price = price)
