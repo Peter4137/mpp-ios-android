@@ -17,6 +17,9 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
 
+    private var chosenDepartureStation: String = ""
+    private var chosenArrivalStation: String = ""
+
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
@@ -28,12 +31,11 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         view.setArrivalDropdown(stationList)
     }
 
-    override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
-        this.view = view
+    override fun onButtonTapped() {
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$departureStation&destinationStation=$arrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
         val client = HttpClient() {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(Json.nonstrict)
@@ -46,8 +48,16 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             for (i in 0..4){
                 departures.add(buildDepartureInformation(jsonString.outboundJourneys[i]))
             }
-            view.populateDeparturesTable(departures)
+            view!!.populateDeparturesTable(departures)
         }
+    }
+
+    override fun setDepartureStation(departureStation: String) {
+        chosenDepartureStation = departureStation
+    }
+
+    override fun setArrivalStation(arrivalStation: String) {
+        chosenArrivalStation = arrivalStation
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
