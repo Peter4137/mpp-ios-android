@@ -1,16 +1,20 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.*
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTimeTz
+import com.soywiz.klock.TimeSpan
+import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
-import kotlinx.coroutines.*
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import java.text.DecimalFormat
 import kotlin.coroutines.CoroutineContext
-
-
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
 
@@ -30,6 +34,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
+        if (departureStation == arrivalStation) return
         this.view = view
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
@@ -59,9 +64,15 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 val journeyTime: TimeSpan = formattedArrival - formattedDeparture
                 val journeyTimeMinutes = "${journeyTime.minutes.toUInt()}m"
                 val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
-                val priceInPounds: Double = 3.00 //jsonString.outboundJourneys[i].tickets[0].priceInPennies.toDouble() / 100
-                val price = "£$priceInPounds"
-
+                lateinit var price: String
+                price = try{
+                    val priceInPounds = jsonString.outboundJourneys[i].tickets[0].priceInPennies.toDouble() / 100
+                    val df = DecimalFormat("#.00")
+                    val roundedPriceInPounds = df.format(priceInPounds)
+                    "£$roundedPriceInPounds"
+                }catch (e: Exception){
+                    "N/A"
+                }
                 departures.add(departureInformation(
                     departureTime = formattedDeparture.format(timeForm),
                     arrivalTime = formattedArrival.format(timeForm),

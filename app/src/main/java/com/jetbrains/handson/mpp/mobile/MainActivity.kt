@@ -72,9 +72,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<departureInformation>) {
+        departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
-        return
+        recyclerView.smoothScrollToPosition(0);
     }
 
 }
