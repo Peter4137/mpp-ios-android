@@ -28,8 +28,8 @@ class ViewController: UIViewController, ApplicationContractView {
     @IBAction func departureButton(_ sender: Any) {
         let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
         let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        presenter.setArrivalStation(arrivalStation: arrivalStation)
         presenter.setDepartureStation(departureStation: departureStation)
+        presenter.setArrivalStation(arrivalStation: arrivalStation)
         presenter.onButtonTapped()
     }
     
