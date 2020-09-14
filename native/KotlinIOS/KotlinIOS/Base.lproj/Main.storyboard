@@ -16,34 +16,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
-                                <rect key="frame" x="184" y="205" width="394" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
+                                <rect key="frame" x="29.5" y="76" width="350" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="184" y="589" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
+                                <rect key="frame" x="184" y="336" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="departureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HJQ-Ap-F6b"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mg5-Jz-IOc">
-                                <rect key="frame" x="0.0" y="321" width="414" height="67"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M65-Eh-iYD">
+                                <rect key="frame" x="0.0" y="223" width="414" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="AcT-Rt-01r"/>
+                                </constraints>
                             </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M65-Eh-iYD">
-                                <rect key="frame" x="0.0" y="411" width="414" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-Bl-8vL">
+                                <rect key="frame" x="40" y="425" width="329" height="350"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mg5-Jz-IOc">
+                                <rect key="frame" x="0.0" y="132" width="414" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="67" id="WpD-4H-MCq"/>
+                                </constraints>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="0EO-4s-M6m"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="10" id="XX7-VF-lgy"/>
-                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pPU-3m-Yf2"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="36" id="20O-vP-noC"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="B1p-yB-RYO"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="centerX" secondItem="M65-Eh-iYD" secondAttribute="centerX" id="C0i-oM-Uc3"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="EE5-bk-h5d"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="59" id="ETC-eR-Xo0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="34.5" id="F7d-8d-7fA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pbc-Bl-8vL" secondAttribute="bottom" constant="87" id="FLK-n2-cET"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="Mg5-Jz-IOc" secondAttribute="leading" id="OeW-SD-YrD"/>
+                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="UHR-hT-RJt"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UQN-NM-S2F"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="M65-Eh-iYD" secondAttribute="bottom" constant="38" id="URN-e0-Ooh"/>
+                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="29.5" id="f4t-GB-pHm"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="centerX" secondItem="Bvm-TJ-sDP" secondAttribute="centerX" id="hpz-dT-Ilz"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="Mg5-Jz-IOc" secondAttribute="trailing" id="kkq-7t-TKP"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="24" id="zCU-ae-I8e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -51,6 +70,7 @@
                         <outlet property="arrivalPicker" destination="M65-Eh-iYD" id="nYL-PJ-WvR"/>
                         <outlet property="departurePicker" destination="Mg5-Jz-IOc" id="tNV-Vd-IqM"/>
                         <outlet property="label" destination="Bvm-TJ-sDP" id="0K4-VH-gLR"/>
+                        <outlet property="tableView" destination="pbc-Bl-8vL" id="Yrc-7i-eVa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

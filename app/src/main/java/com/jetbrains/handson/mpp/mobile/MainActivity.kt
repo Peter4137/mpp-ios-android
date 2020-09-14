@@ -1,15 +1,19 @@
 package com.jetbrains.handson.mpp.mobile
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Spinner
-import android.widget.Button
+import android.view.View
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private lateinit var departureTimes: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,18 +24,36 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-
             val departureSpinner: Spinner = findViewById(R.id.departure_spinner)
             val departureStation = departureSpinner.selectedItem.toString()
             val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
             val arrivalStation = arrivalSpinner.selectedItem.toString()
+            presenter.onButtonTapped()
+        }
+        
+        val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
+        departureSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.setDepartureStation(departureSpinner.getItemAtPosition(position) as String)
+            }
+        }
 
-//            val openURL = Intent(Intent.ACTION_VIEW)
-//            val linkToOpen = "https://www.lner.co.uk/travel-information/travelling-now/live-train-times/depart/$departureStation/$arrivalStation/#LiveDepResults"
-//            openURL.data = Uri.parse(linkToOpen)
-//            startActivity(openURL)
+        val arrivalSpinner = findViewById<Spinner>(R.id.arrival_spinner)
+        arrivalSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.setArrivalStation(arrivalSpinner.getItemAtPosition(position) as String)
+            }
+        }
 
-            presenter.onButtonTapped(departureStation, arrivalStation, this)
+        departureTimes = mutableListOf()
+
+        viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
+        viewAdapter = TableAdapter(departureTimes)
+        recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
     }
 
@@ -63,4 +85,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
+    override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
+        departureTimes.add(departuresList[0].arrivalTime)
+        viewAdapter.notifyDataSetChanged()
+    }
 }
