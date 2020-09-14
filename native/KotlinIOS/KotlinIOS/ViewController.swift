@@ -27,7 +27,9 @@ class ViewController: UIViewController, ApplicationContractView {
     @IBAction func departureButton(_ sender: Any) {
         let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
         let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
+        presenter.setDepartureStation(departureStation: departureStation)
+        presenter.setArrivalStation(arrivalStation: arrivalStation)
+        presenter.onButtonTapped()
     }
     
     func setLabel(text: String) {
@@ -66,7 +68,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
-        reloadData()
+        self.tableView.reloadData()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

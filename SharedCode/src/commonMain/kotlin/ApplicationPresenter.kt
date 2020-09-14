@@ -67,7 +67,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
         val journeyTimeMinutes: String = "${journeyTime.minutes}m"
         val trainOperator = journeyDetails.primaryTrainOperator.name
-        val priceInPounds: Double = journeyDetails.tickets[0].priceInPennies as Double / 100
+        val priceInPounds: Double = 3.00 //journeyDetails.tickets[0].priceInPennies as Double / 100
         val price = "£$priceInPounds"
         return DepartureInformation(
             departureTime = departureDateTime.format(timeForm),
