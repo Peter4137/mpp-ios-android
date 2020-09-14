@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         findViewById<TextView>(R.id.main_text).text = text
     }
 
-    override fun setDepartureDropdown(stationList: List<String>){
+    override fun setDepartureDropdown(stationList: List<String>) {
         val spinner: Spinner = findViewById(R.id.departure_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
          ArrayAdapter(this, android.R.layout.simple_spinner_item, stationList
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
-    override fun setArrivalDropdown(stationList: List<String>){
+    override fun setArrivalDropdown(stationList: List<String>) {
         val spinner: Spinner = findViewById(R.id.arrival_spinner)
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter(this, android.R.layout.simple_spinner_item, stationList
