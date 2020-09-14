@@ -1,6 +1,5 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.DateTimeTz
 import kotlinx.coroutines.CoroutineScope
 
 interface ApplicationContract {
@@ -14,6 +13,5 @@ interface ApplicationContract {
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
         abstract fun onButtonTapped(departureStation: String, arrivalStation: String, view: View)
-        abstract fun processTimeForDisplay(dateTime: String) : DateTimeTz
     }
 }

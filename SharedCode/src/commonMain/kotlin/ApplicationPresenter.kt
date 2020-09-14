@@ -65,7 +65,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
     }
 
-    override fun processTimeForDisplay(dateTime: String): DateTimeTz {
+    private fun processTimeForDisplay(dateTime: String): DateTimeTz {
         val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
         return receivedDateTimeFormat.parse(dateTime)
     }
