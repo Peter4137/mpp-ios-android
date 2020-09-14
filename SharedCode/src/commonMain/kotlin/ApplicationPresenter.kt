@@ -40,6 +40,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
         val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$departureStation&destinationStation=$arrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+
         val client = HttpClient() {
             install(JsonFeature) {
                 serializer = KotlinxSerializer(Json.nonstrict)
@@ -47,7 +48,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
 
         launch {
-            val jsonString = client.get<DepartureDetails>(apiCall)
+            lateinit var jsonString: DepartureDetails
+            try{
+                jsonString = client.get(apiCall)
+            } catch (e: Exception){
+                view.setLabel("API Call Failed")
+            }
             val departures: MutableList<departureInformation> = mutableListOf()
             val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
             val timeForm = DateFormat("HH:mm")
