@@ -50,7 +50,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             try {
                 var departureDetails: DepartureDetails = client.get(apiCall)
                 val departures: MutableList<DepartureInformation> = mutableListOf()
-                for (journey in departureDetails.outboundJourneys){
+                for (journey in departureDetails.outboundJourneys) {
                     departures.add(buildDepartureInformation(journey))
                 }
                 view!!.populateDeparturesTable(departures)
@@ -75,14 +75,14 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
         val journeyTimeMinutes: String = "${journeyTime.minutes}m"
         val trainOperator = journeyDetails.primaryTrainOperator.name
-        var price = try{
-                    val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
-                    val df = DecimalFormat("#.00")
-                    val roundedPriceInPounds = df.format(priceInPounds)
-                    "£$roundedPriceInPounds"
-                } catch (e: Exception) {
-                    "N/A"
-                }
+        var price = try {
+            val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
+            val df = DecimalFormat("#.00")
+            val roundedPriceInPounds = df.format(priceInPounds)
+            "£$roundedPriceInPounds"
+        } catch (e: Exception) {
+            "N/A"
+        }
         return DepartureInformation(
             departureTime = departureDateTime.format(timeForm),
             arrivalTime = arrivalDateTime.format(timeForm),
