@@ -43,26 +43,29 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         launch {
             val jsonString = client.get<DepartureDetails>(apiCall)
             val departures: MutableList<DepartureInformation> = mutableListOf()
-            val timeForm = DateFormat("HH:mm")
             for (i in 0..4){
-                val departureDateTime = processTimeForDisplay(jsonString.outboundJourneys[i].departureTime)
-                val arrivalDateTime = processTimeForDisplay(jsonString.outboundJourneys[i].arrivalTime)
-                val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
-                val journeyTimeMinutes: String = "${journeyTime.minutes}m"
-                val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
-                val priceInPounds: Double = jsonString.outboundJourneys[i].tickets[0].priceInPennies as Double / 100
-                val price: String = "£$priceInPounds"
-
-                departures.add(DepartureInformation(
-                    departureTime = departureDateTime.format(timeForm),
-                    arrivalTime = arrivalDateTime.format(timeForm),
-                    journeyTime = journeyTimeMinutes,
-                    trainOperator = trainOperator,
-                    price = price)
-                )
+                departures.add(buildDepartureInformation(jsonString.outboundJourneys[i]))
             }
             view.populateDeparturesTable(departures)
         }
+    }
+
+    private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
+        val timeForm = DateFormat("HH:mm")
+        val departureDateTime = processTimeForDisplay(journeyDetails.departureTime)
+        val arrivalDateTime = processTimeForDisplay(journeyDetails.arrivalTime)
+        val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
+        val journeyTimeMinutes: String = "${journeyTime.minutes}m"
+        val trainOperator = journeyDetails.primaryTrainOperator.name
+        val priceInPounds: Double = journeyDetails.tickets[0].priceInPennies as Double / 100
+        val price = "£$priceInPounds"
+        return DepartureInformation(
+            departureTime = departureDateTime.format(timeForm),
+            arrivalTime = arrivalDateTime.format(timeForm),
+            journeyTime = journeyTimeMinutes,
+            trainOperator = trainOperator,
+            price = price
+        )
     }
 
     private fun processTimeForDisplay(dateTime: String): DateTimeTz {
