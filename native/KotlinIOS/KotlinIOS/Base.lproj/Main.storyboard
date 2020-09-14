@@ -18,66 +18,88 @@
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M65-Eh-iYD">
                                 <rect key="frame" x="0.0" y="193" width="414" height="75"/>
+                                <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Ou9-EG-YMe"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </pickerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-Bl-8vL">
-                                <rect key="frame" x="40" y="344" width="334" height="528"/>
+                                <rect key="frame" x="0.0" y="344" width="414" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="departureCell" rowHeight="80" id="J3R-Qz-h8u" customClass="DeparturesTableViewCell" customModule="KotlinIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="334" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J3R-Qz-h8u" id="3wy-Ol-MM0" customClass="UITableViewCellContentView">
-                                            <rect key="frame" x="0.0" y="0.0" width="334" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJJ-aX-d5C">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJJ-aX-d5C">
                                                     <rect key="frame" x="15" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="4Sw-PT-9q3"/>
                                                         <constraint firstAttribute="height" constant="25" id="6y2-Wg-AYw"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Label">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <font key="NSFont" metaFont="systemBold" size="20"/>
+                                                                <font key="NSOriginalFont" metaFont="systemBold" size="20"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-wd-UrY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-wd-UrY">
                                                     <rect key="frame" x="120" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="JeP-CG-NVK"/>
                                                         <constraint firstAttribute="width" constant="80" id="lHI-Rt-9dr"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
+                                                    <attributedString key="attributedText">
+                                                        <fragment content="Label">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <font key="NSFont" metaFont="systemBold" size="20"/>
+                                                                <font key="NSOriginalFont" metaFont="systemBold" size="20"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z09-fx-ycY">
-                                                    <rect key="frame" x="239" y="5" width="80" height="25"/>
+                                                    <rect key="frame" x="319" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="r2j-Bi-NzT"/>
                                                         <constraint firstAttribute="width" constant="80" id="zgl-DW-Wry"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.63135527976772787" green="0.88852007772020725" blue="0.78458811619191493" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrowtriangle.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uNt-IA-N8c">
                                                     <rect key="frame" x="95" y="7" width="25" height="15.5"/>
-                                                    <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="myc-SA-DiR"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TestTest" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMy-jK-Nic" userLabel="Operator Label">
-                                                    <rect key="frame" x="159" y="50" width="160" height="25"/>
+                                                    <rect key="frame" x="239" y="50" width="160" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="160" id="Hhl-pO-i5T"/>
                                                         <constraint firstAttribute="height" constant="25" id="wfx-Qb-4GO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Me-vJ-CbW">
@@ -87,7 +109,7 @@
                                                         <constraint firstAttribute="width" constant="80" id="t7c-MG-Yd7"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -118,48 +140,88 @@
                             </tableView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mg5-Jz-IOc">
                                 <rect key="frame" x="0.0" y="114" width="414" height="67"/>
+                                <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="keE-j9-TEJ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="140" y="276" width="134" height="30"/>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ULj-RG-4jw"/>
-                                </constraints>
-                                <state key="normal" title="Find journeys">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="departureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HJQ-Ap-F6b"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
                                 <rect key="frame" x="20" y="55" width="374" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="hjM-jQ-bTw"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" metaFont="systemBold" size="30"/>
+                                            <font key="NSOriginalFont" metaFont="systemBold" size="30"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
+                                <rect key="frame" x="123" y="276" width="169" height="30"/>
+                                <color key="backgroundColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ULj-RG-4jw"/>
+                                </constraints>
+                                <color key="tintColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Find ">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" metaFont="systemBold" size="18"/>
+                                                <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="J">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" metaFont="systemBold" size="18"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="ourneys">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" metaFont="systemBold" size="18"/>
+                                                <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="departureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HJQ-Ap-F6b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="140" id="5RZ-IQ-yQT"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="5RZ-IQ-yQT"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="38" id="6Qm-jD-ZXG"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CPw-bG-gOa"/>
-                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="Cjp-6O-dOo"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cjp-6O-dOo"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="FPD-j9-GpB"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="10" id="HtQ-bi-4Tx"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" constant="40" id="OJ3-Ip-IVH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="OJ3-Ip-IVH"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RNM-hJ-i3P"/>
                             <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="M65-Eh-iYD" secondAttribute="bottom" constant="8" id="V17-ze-KHr"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cNL-Js-G9u"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="12" id="jHK-o0-GNl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="140" id="kMH-nX-cDz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="122" id="kMH-nX-cDz"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sP0-mR-0PO"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="20" id="uZr-vn-Hef"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wmH-jf-ELi"/>

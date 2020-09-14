@@ -22,6 +22,7 @@ class ViewController: UIViewController, ApplicationContractView {
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         setupTableView()
+        tableView.alpha = 0
     }
     
     
@@ -69,6 +70,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
         tableView.reloadData()
+        tableView.alpha = 1
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
