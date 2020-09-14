@@ -8,12 +8,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import java.text.DecimalFormat
+import kotlinx.coroutines.*
+import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
@@ -21,6 +18,9 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val dispatchers = AppDispatchersImpl()
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
+
+    private var chosenDepartureStation: String = ""
+    private var chosenArrivalStation: String = ""
 
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
@@ -33,9 +33,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         view.setArrivalDropdown(stationList)
     }
 
-    override fun onButtonTapped(departureStation: String, arrivalStation: String, view: ApplicationContract.View) {
+    override fun onButtonTapped() {
         if (departureStation == arrivalStation) return
-        this.view = view
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
@@ -54,23 +53,35 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             } catch (e: Exception){
                 view.setLabel("API Call Failed")
             }
-            val departures: MutableList<departureInformation> = mutableListOf()
-            val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
-            val timeForm = DateFormat("HH:mm")
+            val departures: MutableList<DepartureInformation> = mutableListOf()
             var numOfResults = 5
             if (jsonString.outboundJourneys.count() < numOfResults){
                 numOfResults = jsonString.outboundJourneys.count()
             }
             val maxIndexForResults = numOfResults-1
             for (i in 0..maxIndexForResults){
-                val jsonDepartureTime = jsonString.outboundJourneys[i].departureTime
-                val jsonArrivalTime = jsonString.outboundJourneys[i].arrivalTime
-                val formattedDeparture = receivedDateTimeFormat.parse(jsonDepartureTime)
-                val formattedArrival = receivedDateTimeFormat.parse(jsonArrivalTime)
-                val journeyTime: TimeSpan = formattedArrival - formattedDeparture
-                val journeyTimeMinutes = "${journeyTime.minutes.toUInt()}m"
-                val trainOperator = jsonString.outboundJourneys[i].primaryTrainOperator.name
-                lateinit var price: String
+                departures.add(buildDepartureInformation(jsonString.outboundJourneys[i]))
+            }
+            view!!.populateDeparturesTable(departures)
+        }
+    }
+
+    override fun setDepartureStation(departureStation: String) {
+        chosenDepartureStation = departureStation
+    }
+
+    override fun setArrivalStation(arrivalStation: String) {
+        chosenArrivalStation = arrivalStation
+    }
+
+    private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
+        val timeForm = DateFormat("HH:mm")
+        val departureDateTime = processTimeForDisplay(journeyDetails.departureTime)
+        val arrivalDateTime = processTimeForDisplay(journeyDetails.arrivalTime)
+        val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
+        val journeyTimeMinutes: String = "${journeyTime.minutes}m"
+        val trainOperator = journeyDetails.primaryTrainOperator.name
+        lateinit var price: String
                 price = try{
                     val priceInPounds = jsonString.outboundJourneys[i].tickets[0].priceInPennies.toDouble() / 100
                     val df = DecimalFormat("#.00")
@@ -79,48 +90,17 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 }catch (e: Exception){
                     "N/A"
                 }
-                departures.add(departureInformation(
-                    departureTime = formattedDeparture.format(timeForm),
-                    arrivalTime = formattedArrival.format(timeForm),
-                    journeyTime = journeyTimeMinutes,
-                    trainOperator = trainOperator,
-                    price = price)
-                )
-            }
-            view.populateDeparturesTable(departures)
-        }
+        return DepartureInformation(
+            departureTime = departureDateTime.format(timeForm),
+            arrivalTime = arrivalDateTime.format(timeForm),
+            journeyTime = journeyTimeMinutes,
+            trainOperator = trainOperator,
+            price = price
+        )
+    }
 
-
-
+    private fun processTimeForDisplay(dateTime: String): DateTimeTz {
+        val receivedDateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000z")
+        return receivedDateTimeFormat.parse(dateTime)
     }
 }
-
-@Serializable
-data class DepartureDetails(
-    val outboundJourneys : List<JourneyDetails>
-)
-@Serializable
-data class JourneyDetails(
-    val departureTime: String,
-    val arrivalTime: String,
-    val primaryTrainOperator: TrainOperatorDetails,
-    val tickets: List<TicketDetails>
-)
-
-@Serializable
-data class TrainOperatorDetails(
-    val name: String
-)
-
-@Serializable
-data class TicketDetails(
-    val priceInPennies: Int
-)
-
-data class departureInformation(
-    val departureTime: String,
-    val arrivalTime: String,
-    val journeyTime: String,
-    val trainOperator: String,
-    val price: String
-)

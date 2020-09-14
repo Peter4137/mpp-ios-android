@@ -2,10 +2,8 @@ package com.jetbrains.handson.mpp.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Spinner
-import android.widget.Button
+import android.view.View
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -30,7 +28,23 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             val departureStation = departureSpinner.selectedItem.toString()
             val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
             val arrivalStation = arrivalSpinner.selectedItem.toString()
-            presenter.onButtonTapped(departureStation, arrivalStation, this)
+            presenter.onButtonTapped()
+        }
+        
+        val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
+        departureSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.setDepartureStation(departureSpinner.getItemAtPosition(position) as String)
+            }
+        }
+
+        val arrivalSpinner = findViewById<Spinner>(R.id.arrival_spinner)
+        arrivalSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                presenter.setArrivalStation(arrivalSpinner.getItemAtPosition(position) as String)
+            }
         }
 
         departures = mutableListOf()
@@ -71,11 +85,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
     }
 
-    override fun populateDeparturesTable(departuresList: List<departureInformation>) {
+    override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
         departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
         recyclerView.smoothScrollToPosition(0);
     }
-
 }

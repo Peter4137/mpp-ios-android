@@ -16,8 +16,10 @@ class TableAdapter(private val departures: MutableList<departureInformation>):
         val journeyPrice: TextView = itemView.findViewById(R.id.price_text_view)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): TableAdapter.TableViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TableAdapter.TableViewHolder {
         val cellView = LayoutInflater.from(parent.context)
             .inflate(R.layout.cell_view, parent, false)
         return TableViewHolder(cellView)

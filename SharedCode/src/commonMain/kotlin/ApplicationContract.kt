@@ -7,11 +7,13 @@ interface ApplicationContract {
         fun setLabel(text: String)
         fun setDepartureDropdown(stationList: List<String>)
         fun setArrivalDropdown(stationList: List<String>)
-        fun populateDeparturesTable(departuresList: List<departureInformation>)
+        fun populateDeparturesTable(departuresList: List<DepartureInformation>)
     }
 
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
-        abstract fun onButtonTapped(departureStation: String, arrivalStation: String, view: View)
+        abstract fun onButtonTapped()
+        abstract fun setDepartureStation(departureStation: String)
+        abstract fun setArrivalStation(arrivalStation: String)
     }
 }
