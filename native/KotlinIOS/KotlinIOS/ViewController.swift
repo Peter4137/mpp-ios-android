@@ -3,7 +3,7 @@ import SharedCode
 
 
 class ViewController: UIViewController, ApplicationContractView {
-   
+
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
     @IBOutlet private var label: UILabel!
@@ -11,7 +11,7 @@ class ViewController: UIViewController, ApplicationContractView {
 
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = []
-    private var departuresData: [String] = []
+    private var departuresData: [DepartureInformation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,9 @@ class ViewController: UIViewController, ApplicationContractView {
     @IBAction func departureButton(_ sender: Any) {
         let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
         let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        presenter.onButtonTapped(departureStation: departureStation, arrivalStation: arrivalStation, view: self)
+        presenter.setDepartureStation(departureStation: departureStation)
+        presenter.setArrivalStation(arrivalStation: arrivalStation)
+        presenter.onButtonTapped()
     }
     
     func setLabel(text: String) {
@@ -57,15 +59,16 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
-       func setupTableView() {
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.reloadData()
     }
+
     func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
-        reloadData()
+        self.tableView.reloadData()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -75,8 +78,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView,
                  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = departuresData[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "departureCell", for: indexPath) as! DeparturesTableViewCell
+        let departure = departuresData[indexPath.row]
+        cell.departureLabel!.text = departure.departureTime
+        cell.arrivalLabel!.text = departure.arrivalTime
+        cell.durationLabel!.text = departure.journeyTime
+        cell.priceLabel!.text = departure.price
+        cell.operatorLabel!.text = departure.trainOperator
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0;//Choose your custom row height
     }
 }
