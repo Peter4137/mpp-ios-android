@@ -51,54 +51,38 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJJ-aX-d5C">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJJ-aX-d5C">
                                                     <rect key="frame" x="15" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="4Sw-PT-9q3"/>
                                                         <constraint firstAttribute="height" constant="25" id="6y2-Wg-AYw"/>
                                                     </constraints>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Label">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="systemBold" size="20"/>
-                                                                <font key="NSOriginalFont" metaFont="systemBold" size="20"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFontBold" family=".AppleSystemUIFont" pointSize="25"/>
+                                                    <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-wd-UrY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sk-wd-UrY">
                                                     <rect key="frame" x="120" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="JeP-CG-NVK"/>
                                                         <constraint firstAttribute="width" constant="80" id="lHI-Rt-9dr"/>
                                                     </constraints>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Label">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <font key="NSFont" metaFont="systemBold" size="20"/>
-                                                                <font key="NSOriginalFont" metaFont="systemBold" size="20"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFontBold" family=".AppleSystemUIFont" pointSize="25"/>
+                                                    <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z09-fx-ycY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z09-fx-ycY">
                                                     <rect key="frame" x="319" y="5" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="r2j-Bi-NzT"/>
                                                         <constraint firstAttribute="width" constant="80" id="zgl-DW-Wry"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.63135527976772787" green="0.88852007772020725" blue="0.78458811619191493" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrowtriangle.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uNt-IA-N8c">
-                                                    <rect key="frame" x="95" y="7" width="25" height="15.5"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" image="arrowtriangle.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uNt-IA-N8c">
+                                                    <rect key="frame" x="95" y="9" width="25" height="15.5"/>
                                                     <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="myc-SA-DiR"/>
@@ -110,17 +94,17 @@
                                                         <constraint firstAttribute="width" constant="160" id="Hhl-pO-i5T"/>
                                                         <constraint firstAttribute="height" constant="25" id="wfx-Qb-4GO"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Me-vJ-CbW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Me-vJ-CbW">
                                                     <rect key="frame" x="15" y="50" width="80" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Hdw-49-gsf"/>
                                                         <constraint firstAttribute="width" constant="80" id="t7c-MG-Yd7"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -163,53 +147,25 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
                                 <rect key="frame" x="20" y="55" width="374" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="hjM-jQ-bTw"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" metaFont="systemBold" size="30"/>
-                                            <font key="NSOriginalFont" metaFont="systemBold" size="30"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="123" y="276" width="168" height="30"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
+                                <rect key="frame" x="78" y="276" width="258" height="46"/>
                                 <color key="backgroundColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ULj-RG-4jw"/>
+                                    <constraint firstAttribute="height" constant="46" id="ULj-RG-4jw"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="tintColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Find ">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" metaFont="systemBold" size="18"/>
-                                                <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="J">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" metaFont="systemBold" size="18"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="ourneys">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <font key="NSFont" metaFont="systemBold" size="18"/>
-                                                <font key="NSOriginalFont" metaFont="systemBold" size="18"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Find Journeys">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
@@ -223,9 +179,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="5RZ-IQ-yQT"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="78" id="5RZ-IQ-yQT"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="Mg5-Jz-IOc" secondAttribute="trailing" id="5vs-cq-j2z"/>
-                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="38" id="6Qm-jD-ZXG"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="22" id="6Qm-jD-ZXG"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="6tK-KN-Fek"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CPw-bG-gOa"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="py2-Hc-Jwr" secondAttribute="centerX" id="CYf-2G-qvw"/>
@@ -241,7 +197,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2bC-jW-IL6" secondAttribute="bottom" constant="191" id="h9K-3q-Hi1"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="Bvm-TJ-sDP" secondAttribute="centerX" id="hR9-oQ-dgb"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="12" id="jHK-o0-GNl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="122" id="kMH-nX-cDz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="78" id="kMH-nX-cDz"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sP0-mR-0PO"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="18" id="uZr-vn-Hef"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wmH-jf-ELi"/>
