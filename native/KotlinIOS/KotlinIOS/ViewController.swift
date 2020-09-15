@@ -23,6 +23,8 @@ class ViewController: UIViewController, ApplicationContractView {
         self.arrivalPicker.dataSource = self
         setupTableView()
         tableView.alpha = 0
+        setDepartureStation()
+        setArrivalStation()
     }
     
     @IBAction func departureButton(_ sender: Any) {
@@ -56,9 +58,15 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return stationData[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (pickerView.isEqual(departurePicker)) { setDepartureStation() }
+        if (pickerView.isEqual(arrivalPicker)) { setArrivalStation() }
+    }
+    func setDepartureStation() {
         let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
-        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
         presenter.setDepartureStation(departureStation: departureStation)
+    }
+    func setArrivalStation() {
+        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
         presenter.setArrivalStation(arrivalStation: arrivalStation)
     }
     func setDepartureDropdown(stationList: Array<String>) {
