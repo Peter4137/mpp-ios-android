@@ -12,6 +12,7 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.*
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
 
@@ -23,15 +24,22 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
 
+    private val client = HttpClient() {
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json.nonstrict)
+        }
+    }
+
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
-        val stationList = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+        val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+        val stationNames = buildStationList(stationCodes)
         view.setLabel(createApplicationScreenMessage())
-        view.setDepartureDropdown(stationList)
-        view.setArrivalDropdown(stationList)
+        view.setDepartureDropdown(stationNames)
+        view.setArrivalDropdown(stationNames)
     }
 
     override fun onButtonTapped() {
@@ -50,16 +58,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 "outboundDateTime=${searchInformation.departureTime}&" +
                 "outboundIsArriveBy=false"
 
-        val client = HttpClient() {
-            install(HttpTimeout) {
-                requestTimeoutMillis = 3000
-            }
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(Json.nonstrict)
-            }
-        }
-
-        launch {
+        runBlocking {
             try {
                 var departureDetails: DepartureDetails = client.get(apiCall)
                 val departures: MutableList<DepartureInformation> = mutableListOf()
@@ -74,11 +73,11 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        searchInformation.departureStation = departureStation
+        searchInformation.departureStation = matchStationCodeAndName(stationName = departureStation).crs!!
     }
 
     override fun setArrivalStation(arrivalStation: String) {
-        searchInformation.arrivalStation = arrivalStation
+        searchInformation.arrivalStation = matchStationCodeAndName(stationName = arrivalStation).crs!!
     }
 
     override fun setDepartureTime(departureTime: String) {
@@ -91,6 +90,33 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun setNumChildren(numChildren: Int) {
         searchInformation.numChildren = numChildren
+    }
+
+    private fun buildStationList(stationCodes: List<String>): List<String> {
+        val stationList = mutableListOf<String>()
+        for (stationCode in stationCodes) {
+            stationList.add(matchStationCodeAndName(stationCode = stationCode).name)
+        }
+        return stationList
+    }
+
+    private fun matchStationCodeAndName(stationCode: String = "", stationName: String = ""): StationInformation {
+        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/stations"
+        var matchedStation: StationInformation = StationInformation("", "")
+        runBlocking {
+            val stationDetails: StationDetails = client.get(apiCall)
+            for (stationInformation in stationDetails.stations) {
+                if (stationInformation.crs == stationCode) {
+                    matchedStation = stationInformation
+                    break
+                }
+                else if (stationInformation.name == stationName) {
+                    matchedStation = stationInformation
+                    break
+                }
+            }
+        }
+        return matchedStation
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
