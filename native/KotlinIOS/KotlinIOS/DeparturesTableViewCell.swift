@@ -9,7 +9,7 @@ class DeparturesTableViewCell: UITableViewCell {
     @IBOutlet weak var operatorLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.accessibilityElements = [self.departureLabel, self.arrivalLabel, self.durationLabel, self.priceLabel, self.operatorLabel]
+        self.accessibilityElements = [self.departureLabel!, self.arrivalLabel!, self.durationLabel!, self.priceLabel!, self.operatorLabel!]
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
