@@ -36,6 +36,7 @@ class ViewController: UIViewController, ApplicationContractView {
     }
     
     func createAlertMessage(alertMessage: String){
+        activityIndicatorView.stopAnimating()
         let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
