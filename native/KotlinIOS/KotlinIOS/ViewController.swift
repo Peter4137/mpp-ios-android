@@ -3,7 +3,6 @@ import SharedCode
 
 
 class ViewController: UIViewController, ApplicationContractView {
-   
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
@@ -67,6 +66,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.reloadData()
     }
+
     func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
         tableView.reloadData()
@@ -88,5 +88,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.priceLabel!.text = departure.price
         cell.operatorLabel!.text = departure.trainOperator
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80.0;//Choose your custom row height
     }
 }
