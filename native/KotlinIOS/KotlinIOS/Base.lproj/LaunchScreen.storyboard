@@ -18,6 +18,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="tram.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uwA-KQ-Ajm">
                                 <rect key="frame" x="150" y="342.5" width="114" height="151"/>
+                                <color key="tintColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="uwA-KQ-Ajm" secondAttribute="height" multiplier="109:141" id="ddV-NC-2nw"/>
                                 </constraints>

@@ -72,7 +72,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val departureDateTime = processTimeForDisplay(journeyDetails.departureTime)
         val arrivalDateTime = processTimeForDisplay(journeyDetails.arrivalTime)
         val journeyTime: TimeSpan = arrivalDateTime - departureDateTime
-        val journeyTimeMinutes: String = "${journeyTime.minutes}m"
+        val journeyTimeMinutes: String = "${journeyTime.minutes.toInt()} min"
         val trainOperator = journeyDetails.primaryTrainOperator.name
         var price = try {
             val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
@@ -95,3 +95,4 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         return receivedDateTimeFormat.parse(dateTime)
     }
 }
+
