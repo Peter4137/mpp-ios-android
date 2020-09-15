@@ -35,7 +35,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun onButtonTapped() {
         if (chosenDepartureStation == chosenArrivalStation) {
-            view!!.createAlertMessage("Stations cannot match")
+            view!!.showAlertMessage("Stations cannot match")
             return
         }
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
@@ -61,7 +61,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 }
                 view!!.populateDeparturesTable(departures)
             } catch (e: Exception) {
-                view!!.createAlertMessage("API call failed")
+                view!!.showAlertMessage("API call failed")
             }
         }
     }

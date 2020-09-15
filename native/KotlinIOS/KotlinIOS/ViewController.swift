@@ -36,6 +36,10 @@ class ViewController: UIViewController, ApplicationContractView {
         label.text = text
     }
     
+    func showAlertMessage(alertMessage: String) {
+        return
+    }
+    
 }
 
 extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {

@@ -8,7 +8,7 @@ interface ApplicationContract {
         fun setDepartureDropdown(stationList: List<String>)
         fun setArrivalDropdown(stationList: List<String>)
         fun populateDeparturesTable(departuresList: List<DepartureInformation>)
-        fun createAlertMessage(alertMessage: String)
+        fun showAlertMessage(alertMessage: String)
     }
 
     abstract class Presenter: CoroutineScope {
