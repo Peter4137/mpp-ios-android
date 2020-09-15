@@ -8,7 +8,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
-//import java.text.DecimalFormat
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
@@ -77,8 +76,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val trainOperator = journeyDetails.primaryTrainOperator.name
         var price = try {
             val priceInPounds = journeyDetails.tickets[0].priceInPennies.toDouble() / 100
-            //val df = DecimalFormat("#.00")
-            val roundedPriceInPounds = 3.00 //df.format(priceInPounds)
+            val roundedPriceInPounds = roundToDecimalPlace(priceInPounds, 2)
             "£$roundedPriceInPounds"
         } catch (e: Exception) {
             "N/A"
