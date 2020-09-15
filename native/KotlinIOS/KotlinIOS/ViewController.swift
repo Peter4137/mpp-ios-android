@@ -22,12 +22,12 @@ class ViewController: UIViewController, ApplicationContractView {
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         setupTableView()
-        tableView.alpha = 0
+        tableView.isHidden = true
         setDepartureStation()
         setArrivalStation()
     }
     
-    @IBAction func departureButton(_ sender: Any) {
+    @IBAction func onJourneySelected(_ sender: Any) {
         tableView.isHidden = true
         activityIndicatorView.startAnimating()
         presenter.onButtonTapped()
@@ -91,7 +91,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         activityIndicatorView.stopAnimating()
         tableView.isHidden = false
         tableView.reloadData()
-        tableView.alpha = 1
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
