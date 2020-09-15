@@ -9,12 +9,12 @@ class DeparturesTableViewCell: UITableViewCell {
     @IBOutlet weak var operatorLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.accessibilityElements = [self.departureLabel, self.arrivalLabel, self.durationLabel, self.priceLabel, self.operatorLabel]
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 
