@@ -42,8 +42,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-Bl-8vL">
                                 <rect key="frame" x="0.0" y="344" width="414" height="528"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="0.0" bottom="8" trailing="4"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="departureCell" rowHeight="80" id="J3R-Qz-h8u" customClass="DeparturesTableViewCell" customModule="KotlinIOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="departureCell" rowHeight="80" id="J3R-Qz-h8u" customClass="DeparturesTableViewCell" customModule="KotlinIOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J3R-Qz-h8u" id="3wy-Ol-MM0" customClass="UITableViewCellContentView">
@@ -139,6 +140,7 @@
                                                 <constraint firstItem="bJJ-aX-d5C" firstAttribute="leading" secondItem="3wy-Ol-MM0" secondAttribute="leading" constant="15" id="rWl-U5-8D6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="arrivalLabel" destination="0Sk-wd-UrY" id="Kce-y9-RmY"/>
                                             <outlet property="departureLabel" destination="bJJ-aX-d5C" id="oxx-dP-5rV"/>
