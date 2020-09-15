@@ -5,6 +5,7 @@ import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimeSpan
 import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
+import io.ktor.client.features.HttpTimeout
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
@@ -34,13 +35,19 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped() {
-        if (chosenDepartureStation == chosenArrivalStation) return
+        if (chosenDepartureStation == chosenArrivalStation) {
+            view!!.createAlertMessage("Stations cannot match")
+            return
+        }
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
         val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
 
         val client = HttpClient() {
+            install(HttpTimeout) {
+                requestTimeoutMillis = 3000
+            }
             install(JsonFeature) {
                 serializer = KotlinxSerializer(Json.nonstrict)
             }
@@ -55,7 +62,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 }
                 view!!.populateDeparturesTable(departures)
             } catch (e: Exception) {
-                view!!.setLabel("API Call Failed")
+                view!!.createAlertMessage("API call failed")
             }
         }
     }
