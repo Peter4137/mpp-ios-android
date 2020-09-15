@@ -16,6 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2bC-jW-IL6">
+                                <rect key="frame" x="0.0" y="616" width="414" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="hn0-iA-Q9d"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </activityIndicatorView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M65-Eh-iYD">
                                 <rect key="frame" x="0.0" y="193" width="414" height="75"/>
                                 <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -150,10 +161,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvm-TJ-sDP">
                                 <rect key="frame" x="20" y="55" width="374" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="hjM-jQ-bTw"/>
+                                    <constraint firstAttribute="height" constant="41" id="hjM-jQ-bTw"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
@@ -168,7 +179,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="123" y="276" width="169" height="30"/>
+                                <rect key="frame" x="123" y="276" width="168" height="30"/>
                                 <color key="backgroundColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ULj-RG-4jw"/>
@@ -211,25 +222,33 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="5RZ-IQ-yQT"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="Mg5-Jz-IOc" secondAttribute="trailing" id="5vs-cq-j2z"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="38" id="6Qm-jD-ZXG"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="6tK-KN-Fek"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CPw-bG-gOa"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="py2-Hc-Jwr" secondAttribute="centerX" id="CYf-2G-qvw"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cjp-6O-dOo"/>
-                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="FPD-j9-GpB"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="M65-Eh-iYD" secondAttribute="trailing" id="EPO-Pa-tAb"/>
+                            <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="11" id="FPD-j9-GpB"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="10" id="HtQ-bi-4Tx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="OJ3-Ip-IVH"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RNM-hJ-i3P"/>
                             <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="M65-Eh-iYD" secondAttribute="bottom" constant="8" id="V17-ze-KHr"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="leading" secondItem="M65-Eh-iYD" secondAttribute="leading" id="aKD-gU-5fd"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cNL-Js-G9u"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2bC-jW-IL6" secondAttribute="bottom" constant="191" id="h9K-3q-Hi1"/>
+                            <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="Bvm-TJ-sDP" secondAttribute="centerX" id="hR9-oQ-dgb"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="12" id="jHK-o0-GNl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="122" id="kMH-nX-cDz"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sP0-mR-0PO"/>
-                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="20" id="uZr-vn-Hef"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="18" id="uZr-vn-Hef"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wmH-jf-ELi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="20" id="zhF-aH-M5e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="2bC-jW-IL6" id="koT-rm-Jpf"/>
                         <outlet property="arrivalPicker" destination="M65-Eh-iYD" id="nYL-PJ-WvR"/>
                         <outlet property="departurePicker" destination="Mg5-Jz-IOc" id="tNV-Vd-IqM"/>
                         <outlet property="label" destination="Bvm-TJ-sDP" id="0K4-VH-gLR"/>
