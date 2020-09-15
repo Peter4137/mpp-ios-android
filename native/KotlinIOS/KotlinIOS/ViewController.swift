@@ -35,7 +35,7 @@ class ViewController: UIViewController, ApplicationContractView {
         label.text = text
     }
     
-    func createAlertMessage(alertMessage: String){
+    func createAlertMessage(alertMessage: String) {
         activityIndicatorView.stopAnimating()
         let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
