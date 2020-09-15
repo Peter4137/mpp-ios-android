@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val button = findViewById<Button>(R.id.button)
 
         button.setOnClickListener {
-            showLoadingSpinner()
+            setLoadingSpinner(true)
             presenter.onButtonTapped()
         }
         
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
-        hideLoadingSpinner()
+        setLoadingSpinner(false)
         departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
@@ -97,20 +97,18 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         alertDialogBuilder.setMessage(alertMessage)
         alertDialogBuilder.setNeutralButton("Ok") { _, _ -> null}
         alertDialogBuilder.show()
-        hideLoadingSpinner()
+        setLoadingSpinner(false)
     }
 
-    private fun showLoadingSpinner() {
+    private fun setLoadingSpinner(visible: Boolean) {
         val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
         val departuresTable = findViewById<RecyclerView>(R.id.departures_table)
-        loadingSpinner.visibility = View.VISIBLE
-        departuresTable.visibility = View.INVISIBLE
-    }
-
-    private fun hideLoadingSpinner() {
-        val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
-        val departuresTable = findViewById<RecyclerView>(R.id.departures_table)
-        loadingSpinner.visibility = View.INVISIBLE
-        departuresTable.visibility = View.VISIBLE
+        if (visible) {
+            loadingSpinner.visibility = View.VISIBLE
+            departuresTable.visibility = View.INVISIBLE
+        } else {
+            loadingSpinner.visibility = View.INVISIBLE
+            departuresTable.visibility = View.VISIBLE
+        }
     }
 }
