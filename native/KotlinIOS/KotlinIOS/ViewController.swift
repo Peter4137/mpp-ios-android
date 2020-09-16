@@ -1,12 +1,9 @@
 import UIKit
 import SharedCode
 
-protocol advancedSearcdDelegate
-{
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String)
-}
 
-class ViewController: UIViewController, ApplicationContractView, advancedSearcdDelegate {
+
+class ViewController: UIViewController, ApplicationContractView, advancedSearchDelegate {
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!

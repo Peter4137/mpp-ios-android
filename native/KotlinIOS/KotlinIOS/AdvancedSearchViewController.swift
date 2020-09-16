@@ -4,7 +4,7 @@ import SharedCode
 
 class AdvancedSearchViewController: UIViewController {
 
-    var delegate: advancedSearcdDelegate?
+    var delegate: advancedSearchDelegate?
     
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var dismissButton: UIButton!
@@ -35,4 +35,9 @@ class AdvancedSearchViewController: UIViewController {
     @IBAction func incrementChildren(_ sender: Any) {
         numberChildren.text = String(round(childrenStepper.value))
     }
+}
+
+protocol advancedSearchDelegate
+{
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String)
 }
