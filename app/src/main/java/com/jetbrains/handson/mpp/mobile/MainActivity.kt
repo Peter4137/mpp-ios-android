@@ -1,10 +1,12 @@
 package com.jetbrains.handson.mpp.mobile
 
+import android.app.Activity
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,6 +18,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
     private lateinit var departures: MutableList<DepartureInformation>
 
+    private var numAdults = 1
+    private var numChildren = 0
+    private var departureTime = "Unset"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,13 +29,21 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-
-
         val button = findViewById<Button>(R.id.button)
-
         button.setOnClickListener {
             showLoadingSpinner(true)
+            presenter.setNumAdults(numAdults)
+            presenter.setNumChildren(numChildren)
+            if (departureTime!="Unset"){
+                presenter.setDepartureTime(departureTime)
+            }
             presenter.onButtonTapped()
+        }
+
+        val advancedSearchButton = findViewById<TextView>(R.id.advanced_search)
+        advancedSearchButton.setOnClickListener {
+            val intent = Intent(this, PopUpWindow::class.java)
+            startActivityForResult(intent, 2)
         }
         
         val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
@@ -113,4 +127,16 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             departuresTable.visibility = View.VISIBLE
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2) {
+            if (data != null) {
+                numAdults = data.getIntExtra("numAdults",1)
+                numChildren = data.getIntExtra("numChildren", 0)
+                departureTime = data.getStringExtra("time")
+            }
+        }
+    }
+
 }

@@ -22,6 +22,10 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+    <style name="ClickableText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
     <style name="StandardButton" parent="TextAppearance.AppCompat">
         <item name="android:background">@drawable/button_shape</item>
         <item name="android:textColor">@color/colorPrimary</item>
