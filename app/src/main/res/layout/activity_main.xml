@@ -38,16 +38,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/departure_spinner" />
 
+    <TextView
+        style="@style/ClickableText"
+        android:id="@+id/advanced_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="@string/advanced_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/arrival_spinner" />
+
     <Button
         style="@style/StandardButton"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="18dp"
         android:text="@string/search_button_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrival_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/advanced_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/departures_table"
