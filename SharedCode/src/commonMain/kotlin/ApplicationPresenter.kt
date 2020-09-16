@@ -24,7 +24,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
-    private val stationNames = mutableListOf<String>()
+    private val stationNameToCodeMapping = mutableMapOf<String, String>()
 
 
     private val client = HttpClient() {
@@ -98,8 +98,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         launch {
             val allStationDetails = getAllStationDetails()
             buildStationNamesList(allStationDetails)
-            view!!.setDepartureDropdown(stationNames)
-            view!!.setArrivalDropdown(stationNames)
+            view!!.setDepartureDropdown(stationNameToCodeMapping.keys.toList())
+            view!!.setArrivalDropdown(stationNameToCodeMapping.keys.toList())
         }
     }
 
@@ -107,7 +107,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         for (stationCode in stationCodes) {
             for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
-                    stationNames.add(stationInformation.name)
+                    stationNameToCodeMapping[stationInformation.name] = stationCode
                 }
             }
         }
@@ -119,7 +119,13 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     private fun matchStationNameToCode(stationName: String): String {
-        return stationCodes[stationNames.indexOf(stationName)]
+        var matchedCode = ""
+        try {
+            matchedCode = stationNameToCodeMapping[stationName]!!
+        } catch (e: Exception) {
+            view!!.showAlertMessage("Invalid station name")
+        }
+        return matchedCode
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
