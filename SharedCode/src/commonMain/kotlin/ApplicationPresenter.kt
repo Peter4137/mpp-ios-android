@@ -19,8 +19,9 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
 
-    private var chosenDepartureStation: String = ""
-    private var chosenArrivalStation: String = ""
+    private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+    private val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
+    private var searchInformation = SearchInformation("","",timeNow,1,0)
 
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
@@ -34,14 +35,21 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped() {
-        if (chosenDepartureStation == chosenArrivalStation) {
+        if (searchInformation.departureStation == searchInformation.arrivalStation) {
             view!!.showAlertMessage("Stations cannot match")
             return
         }
-        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-        val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+
+        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?" +
+                "originStation=${searchInformation.departureStation}&" +
+                "destinationStation=${searchInformation.arrivalStation}&" +
+                "noChanges=false&" +
+                "numberOfAdults=${searchInformation.numAdults}&" +
+                "numberOfChildren=${searchInformation.numChildren}&" +
+                "journeyType=single&" +
+                "outboundDateTime=${searchInformation.departureTime}&" +
+                "outboundIsArriveBy=false"
 
         val client = HttpClient() {
             install(HttpTimeout) {
@@ -67,11 +75,23 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        chosenDepartureStation = departureStation
+        searchInformation.departureStation = departureStation
     }
 
     override fun setArrivalStation(arrivalStation: String) {
-        chosenArrivalStation = arrivalStation
+        searchInformation.arrivalStation = arrivalStation
+    }
+
+    override fun setDepartureTime(departureTime: String) {
+        searchInformation.departureTime = departureTime
+    }
+
+    override fun setNumAdults(numAdults: Int) {
+        searchInformation.numAdults = numAdults
+    }
+
+    override fun setNumChildren(numChildren: Int) {
+        searchInformation.numChildren = numChildren
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {

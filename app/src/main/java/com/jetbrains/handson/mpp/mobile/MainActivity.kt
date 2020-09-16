@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
+
+
         val button = findViewById<Button>(R.id.button)
 
         button.setOnClickListener {
