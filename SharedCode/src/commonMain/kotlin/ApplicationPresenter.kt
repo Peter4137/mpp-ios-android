@@ -33,6 +33,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
     }
 
+    private val baseURL = "https://mobile-api-dev.lner.co.uk/v1/"
+
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
@@ -47,8 +49,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             view!!.showAlertMessage("Stations cannot match")
             return
         }
-
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?" +
+        
+        val apiCall = baseURL + "fares?" +
                 "originStation=${searchInformation.departureStation}&" +
                 "destinationStation=${searchInformation.arrivalStation}&" +
                 "noChanges=false&" +
@@ -112,7 +114,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     private suspend fun getAllStationDetails(): StationDetails {
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/stations"
+        val apiCall = baseURL + "stations"
         return client.get(apiCall)
     }
 
