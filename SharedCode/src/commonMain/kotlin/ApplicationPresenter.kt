@@ -24,7 +24,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
-    private val stationNames = MutableList<String>(stationCodes.size) { _ -> "" }
+    private val stationNames = mutableListOf<String>()
 
 
     private val client = HttpClient() {
@@ -105,7 +105,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         for ((codeIndex, stationCode) in stationCodes.withIndex()) {
             for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
-                    stationNames[codeIndex] = stationInformation.name
+                    stationNames.add(stationInformation.name)
                 }
             }
         }
