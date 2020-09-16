@@ -1,6 +1,7 @@
 package com.jetbrains.handson.mpp.mobile
 
-import android.app.Activity
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTimeTz
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -20,7 +21,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
     private var numAdults = 1
     private var numChildren = 0
-    private var departureTime = "Unset"
+    private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+    private val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
+    private var departureTime = timeNow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +37,10 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             showLoadingSpinner(true)
             presenter.setNumAdults(numAdults)
             presenter.setNumChildren(numChildren)
-            if (departureTime!="Unset"){
-                presenter.setDepartureTime(departureTime)
+            if (departureTime=="Unset"){
+                departureTime=timeNow
             }
+            presenter.setDepartureTime(departureTime)
             presenter.onButtonTapped()
         }
 

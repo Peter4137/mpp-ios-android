@@ -107,11 +107,11 @@ class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         myHour = hourOfDay
         myMinute = minute
-        val timeText = "$myDay/${myMonth}, $myHour:$myMinute"
+        val timeText = "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
         timeChanged = true
         textView.text = timeText
     }
-    fun makeNumberTwoDigits(number: Int): String {
+    private fun makeNumberTwoDigits(number: Int): String {
         if (number.toString().length==1){
             return ("0$number")
         }

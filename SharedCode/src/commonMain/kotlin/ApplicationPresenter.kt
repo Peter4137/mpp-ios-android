@@ -51,8 +51,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 "outboundDateTime=${searchInformation.departureTime}&" +
                 "outboundIsArriveBy=false"
 
-        view?.setLabel(searchInformation.departureTime)
-
         val client = HttpClient() {
             install(HttpTimeout) {
                 requestTimeoutMillis = 3000
