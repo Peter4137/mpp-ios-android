@@ -8,14 +8,12 @@
 
 
     <TextView
-        style="@style/MainText"
+        style="@style/PageTitle"
         android:id="@+id/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/main_title"
-        android:textAlignment="center"
-        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,13 +39,12 @@
         app:layout_constraintTop_toBottomOf="@+id/departure_spinner" />
 
     <Button
+        style="@style/StandardButton"
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/search_button_label"
-        android:background="@drawable/button_shape"
-        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrival_spinner" />
