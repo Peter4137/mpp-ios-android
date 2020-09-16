@@ -11,13 +11,15 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.*
 import kotlin.coroutines.CoroutineContext
-import kotlinx.coroutines.*
 
 class ApplicationPresenter: ApplicationContract.Presenter() {
 
     private val dispatchers = AppDispatchersImpl()
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
+
+    private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+    private val stationNames = MutableList<String>(stationCodes.size) { _ -> "" }
 
     private var chosenDepartureStation: String = ""
     private var chosenArrivalStation: String = ""
@@ -33,11 +35,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
-        val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
-        val stationNames = buildStationList(stationCodes)
+        buildStationDropdowns()
         view.setLabel(createApplicationScreenMessage())
-        view.setDepartureDropdown(stationNames)
-        view.setArrivalDropdown(stationNames)
     }
 
     override fun onButtonTapped() {
@@ -47,7 +46,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
         val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
 
-        runBlocking {
+        launch {
             try {
                 var departureDetails: DepartureDetails = client.get(apiCall)
                 val departures: MutableList<DepartureInformation> = mutableListOf()
@@ -62,39 +61,39 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        chosenDepartureStation = matchStationCodeAndName(stationName = departureStation).crs!!
-
+        chosenDepartureStation = matchStationNameToCode(departureStation)
     }
 
     override fun setArrivalStation(arrivalStation: String) {
-        chosenArrivalStation = matchStationCodeAndName(stationName = arrivalStation).crs!!
+        chosenArrivalStation = matchStationNameToCode(arrivalStation)
     }
 
-    private fun buildStationList(stationCodes: List<String>): List<String> {
-        val stationList = mutableListOf<String>()
-        for (stationCode in stationCodes) {
-            stationList.add(matchStationCodeAndName(stationCode = stationCode).name)
+    private fun buildStationDropdowns() {
+        launch {
+            val allStationDetails = getAllStationDetails()
+            buildStationNamesList(allStationDetails)
+            view!!.setDepartureDropdown(stationNames)
+            view!!.setArrivalDropdown(stationNames)
         }
-        return stationList
     }
 
-    private fun matchStationCodeAndName(stationCode: String = "", stationName: String = ""): StationInformation {
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/stations"
-        var matchedStation: StationInformation = StationInformation("", "")
-        runBlocking {
-            val stationDetails: StationDetails = client.get(apiCall)
-            for (stationInformation in stationDetails.stations) {
+    private fun buildStationNamesList(allStationDetails: StationDetails) {
+        for ((codeIndex, stationCode) in stationCodes.withIndex()) {
+            for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
-                    matchedStation = stationInformation
-                    break
-                }
-                else if (stationInformation.name == stationName) {
-                    matchedStation = stationInformation
-                    break
+                    stationNames[codeIndex] = stationInformation.name
                 }
             }
         }
-        return matchedStation
+    }
+
+    private suspend fun getAllStationDetails(): StationDetails {
+        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/stations"
+        return client.get(apiCall)
+    }
+
+    private fun matchStationNameToCode(stationName: String): String {
+        return stationCodes[stationNames.indexOf(stationName)]
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {

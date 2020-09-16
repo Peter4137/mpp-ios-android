@@ -51,9 +51,11 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func setDepartureDropdown(stationList: Array<String>) {
         stationData = stationList
+        self.departurePicker.reloadComponent(0)
     }
     func setArrivalDropdown(stationList: Array<String>) {
         stationData = stationList
+        self.arrivalPicker.reloadComponent(0)
     }
 }
 
