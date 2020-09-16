@@ -8,7 +8,8 @@ class ViewController: UIViewController, ApplicationContractView {
     @IBOutlet weak var arrivalPicker: UIPickerView!
     @IBOutlet private var label: UILabel!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = []
     private var departuresData: [DepartureInformation] = []
@@ -21,19 +22,26 @@ class ViewController: UIViewController, ApplicationContractView {
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         setupTableView()
+        tableView.isHidden = true
+        setDepartureStation()
+        setArrivalStation()
     }
     
-    
-    @IBAction func departureButton(_ sender: Any) {
-        let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
-        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
-        presenter.setDepartureStation(departureStation: departureStation)
-        presenter.setArrivalStation(arrivalStation: arrivalStation)
+    @IBAction func onJourneySelected(_ sender: Any) {
+        tableView.isHidden = true
+        activityIndicatorView.startAnimating()
         presenter.onButtonTapped()
     }
     
     func setLabel(text: String) {
         label.text = text
+    }
+    
+    func showAlertMessage(alertMessage: String) {
+        activityIndicatorView.stopAnimating()
+        let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
@@ -48,6 +56,18 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return stationData[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (pickerView.isEqual(departurePicker)) { setDepartureStation() }
+        if (pickerView.isEqual(arrivalPicker)) { setArrivalStation() }
+    }
+    func setDepartureStation() {
+        let departureStation: String = stationData[departurePicker.selectedRow(inComponent: 0)]
+        presenter.setDepartureStation(departureStation: departureStation)
+    }
+    func setArrivalStation() {
+        let arrivalStation: String = stationData[arrivalPicker.selectedRow(inComponent: 0)]
+        presenter.setArrivalStation(arrivalStation: arrivalStation)
     }
     func setDepartureDropdown(stationList: Array<String>) {
         stationData = stationList
@@ -68,7 +88,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
     func populateDeparturesTable(departuresList: [DepartureInformation]) {
         departuresData = departuresList
-        self.tableView.reloadData()
+        activityIndicatorView.stopAnimating()
+        tableView.isHidden = false
+        tableView.reloadData()
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val button = findViewById<Button>(R.id.button)
 
         button.setOnClickListener {
-            setLoadingSpinner(true)
+            showLoadingSpinner(true)
             presenter.onButtonTapped()
         }
         
@@ -85,22 +85,22 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
-        setLoadingSpinner(false)
+        showLoadingSpinner(false)
         departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
         recyclerView.smoothScrollToPosition(0);
     }
 
-    override fun createAlertMessage(alertMessage: String) {
+    override fun showAlertMessage(alertMessage: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setMessage(alertMessage)
         alertDialogBuilder.setNeutralButton("Ok") { _, _ -> null}
         alertDialogBuilder.show()
-        setLoadingSpinner(false)
+        showLoadingSpinner(false)
     }
 
-    private fun setLoadingSpinner(visible: Boolean) {
+    private fun showLoadingSpinner(visible: Boolean) {
         val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
         val departuresTable = findViewById<RecyclerView>(R.id.departures_table)
         if (visible) {
