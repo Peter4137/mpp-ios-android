@@ -31,6 +31,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         }
     }
 
+    private val baseURL = "https://mobile-api-dev.lner.co.uk/v1/"
+
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
@@ -48,7 +50,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+        val apiCall = baseURL + "fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
 
         launch {
             try {
@@ -92,7 +94,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     private suspend fun getAllStationDetails(): StationDetails {
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/stations"
+        val apiCall = baseURL + "stations"
         return client.get(apiCall)
     }
 
