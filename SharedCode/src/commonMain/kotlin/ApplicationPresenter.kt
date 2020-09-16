@@ -84,7 +84,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     private fun buildStationNamesList(allStationDetails: StationDetails) {
-        for ((codeIndex, stationCode) in stationCodes.withIndex()) {
+        for (stationCode in stationCodes) {
             for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
                     stationNames.add(stationInformation.name)
