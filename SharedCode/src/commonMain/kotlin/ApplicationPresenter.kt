@@ -20,7 +20,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val job: Job = SupervisorJob()
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
-    private val stationNames = MutableList<String>(stationCodes.size) { _ -> "" }
+    private val stationNames = mutableListOf<String>()
 
     private var chosenDepartureStation: String = ""
     private var chosenArrivalStation: String = ""
@@ -85,7 +85,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         for ((codeIndex, stationCode) in stationCodes.withIndex()) {
             for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
-                    stationNames[codeIndex] = stationInformation.name
+                    stationNames.add(stationInformation.name)
                 }
             }
         }
