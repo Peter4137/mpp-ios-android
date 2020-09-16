@@ -2,7 +2,8 @@ import UIKit
 import SharedCode
 
 
-class ViewController: UIViewController, ApplicationContractView {
+
+class ViewController: UIViewController, ApplicationContractView, advancedSearchDelegate {
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
@@ -25,6 +26,19 @@ class ViewController: UIViewController, ApplicationContractView {
         tableView.isHidden = true
         setDepartureStation()
         setArrivalStation()
+    }
+    
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String) {
+        presenter.setNumAdults(numAdults: Int32(numAdults))
+        presenter.setNumChildren(numChildren: Int32(numChildren))
+        presenter.setDepartureTime(departureTime: date)
+    }
+    
+    @IBAction func showAdvancedSearch(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "AdvancedSearch", bundle: .main)
+        let advancedSearchVC = storyboard.instantiateViewController(withIdentifier: "AdvancedSearchVC") as! AdvancedSearchViewController
+        advancedSearchVC.delegate = self
+        present(advancedSearchVC, animated: true)
     }
     
     @IBAction func onJourneySelected(_ sender: Any) {

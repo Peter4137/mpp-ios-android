@@ -26,10 +26,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mg5-Jz-IOc">
-                                <rect key="frame" x="0.0" y="114" width="414" height="67"/>
+                                <rect key="frame" x="0.0" y="101" width="414" height="67"/>
                                 <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="67" id="keE-j9-TEJ"/>
+                                    <constraint firstAttribute="height" constant="67" id="bF4-MY-MMi"/>
+                                    <constraint firstAttribute="width" constant="414" id="mdV-D1-mBT"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -38,10 +39,10 @@
                                 </userDefinedRuntimeAttributes>
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M65-Eh-iYD">
-                                <rect key="frame" x="0.0" y="193" width="414" height="75"/>
+                                <rect key="frame" x="0.0" y="176" width="414" height="75"/>
                                 <color key="tintColor" red="0.45195150379999999" green="0.50066465140000005" blue="0.55687141419999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="Ou9-EG-YMe"/>
+                                    <constraint firstAttribute="height" constant="75" id="E3o-af-iPQ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="textColor">
@@ -50,11 +51,8 @@
                                 </userDefinedRuntimeAttributes>
                             </pickerView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="78" y="276" width="258" height="46"/>
+                                <rect key="frame" x="78" y="297" width="258" height="33"/>
                                 <color key="backgroundColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="ULj-RG-4jw"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="tintColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Find Journeys">
@@ -81,7 +79,7 @@
                                 </userDefinedRuntimeAttributes>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-Bl-8vL">
-                                <rect key="frame" x="0.0" y="344" width="414" height="528"/>
+                                <rect key="frame" x="0.0" y="350" width="414" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="0.0" bottom="8" trailing="4"/>
                                 <prototypes>
@@ -176,31 +174,44 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLx-rr-DjC">
+                                <rect key="frame" x="118" y="259" width="178" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                <color key="tintColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Advanced search"/>
+                                <connections>
+                                    <action selector="showAdvancedSearch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LQ9-lL-SxB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="78" id="5RZ-IQ-yQT"/>
-                            <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="Mg5-Jz-IOc" secondAttribute="trailing" id="5vs-cq-j2z"/>
-                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="22" id="6Qm-jD-ZXG"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="Mg5-Jz-IOc" secondAttribute="trailing" id="6gu-cf-Vel"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="6tK-KN-Fek"/>
-                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CPw-bG-gOa"/>
-                            <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="py2-Hc-Jwr" secondAttribute="centerX" id="CYf-2G-qvw"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="78" id="9UA-SR-8bu"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cjp-6O-dOo"/>
-                            <constraint firstItem="2bC-jW-IL6" firstAttribute="trailing" secondItem="M65-Eh-iYD" secondAttribute="trailing" id="EPO-Pa-tAb"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Cqn-mt-GoQ"/>
+                            <constraint firstItem="yLx-rr-DjC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="DGc-sH-7Tf"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="Mg5-Jz-IOc" secondAttribute="leading" id="E8M-t3-x1t"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="11" id="FPD-j9-GpB"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GKW-d2-Tos"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="10" id="HtQ-bi-4Tx"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="yLx-rr-DjC" secondAttribute="bottom" constant="8" id="LfW-gM-FSd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pbc-Bl-8vL" secondAttribute="trailing" id="OJ3-Ip-IVH"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="2bC-jW-IL6" secondAttribute="leading" id="QPb-5f-4f2"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="RNM-hJ-i3P"/>
-                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="M65-Eh-iYD" secondAttribute="bottom" constant="8" id="V17-ze-KHr"/>
-                            <constraint firstItem="2bC-jW-IL6" firstAttribute="leading" secondItem="M65-Eh-iYD" secondAttribute="leading" id="aKD-gU-5fd"/>
-                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="cNL-Js-G9u"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="yLx-rr-DjC" secondAttribute="bottom" constant="8" id="Uaq-Qt-WEd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="78" id="W2O-f0-PoD"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="YPk-s3-fmr"/>
+                            <constraint firstItem="yLx-rr-DjC" firstAttribute="top" secondItem="M65-Eh-iYD" secondAttribute="bottom" constant="8" id="ci1-t0-csO"/>
+                            <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="8" id="dYh-b4-7sQ"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ee4-rj-N8E"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2bC-jW-IL6" secondAttribute="bottom" constant="191" id="h9K-3q-Hi1"/>
                             <constraint firstItem="2bC-jW-IL6" firstAttribute="centerX" secondItem="Bvm-TJ-sDP" secondAttribute="centerX" id="hR9-oQ-dgb"/>
-                            <constraint firstItem="M65-Eh-iYD" firstAttribute="top" secondItem="Mg5-Jz-IOc" secondAttribute="bottom" constant="12" id="jHK-o0-GNl"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="py2-Hc-Jwr" secondAttribute="trailing" constant="78" id="kMH-nX-cDz"/>
-                            <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sP0-mR-0PO"/>
-                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="18" id="uZr-vn-Hef"/>
-                            <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wmH-jf-ELi"/>
+                            <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="20" id="i5S-ix-EE2"/>
+                            <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="5" id="obT-vO-fWd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yLx-rr-DjC" secondAttribute="trailing" constant="118" id="unP-Qm-3Ag"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="20" id="zhF-aH-M5e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
