@@ -1,5 +1,6 @@
 package com.jetbrains.handson.mpp.mobile
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,11 +24,9 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         presenter.onViewTaken(this)
 
         val button = findViewById<Button>(R.id.button)
+
         button.setOnClickListener {
-            val departureSpinner: Spinner = findViewById(R.id.departure_spinner)
-            val departureStation = departureSpinner.selectedItem.toString()
-            val arrivalSpinner: Spinner = findViewById(R.id.arrival_spinner)
-            val arrivalStation = arrivalSpinner.selectedItem.toString()
+            showLoadingSpinner(true)
             presenter.onButtonTapped()
         }
         
@@ -86,9 +85,30 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     }
 
     override fun populateDeparturesTable(departuresList: List<DepartureInformation>) {
+        showLoadingSpinner(false)
         departures.clear()
         departures.addAll(departuresList)
         viewAdapter.notifyDataSetChanged()
         recyclerView.smoothScrollToPosition(0);
+    }
+
+    override fun showAlertMessage(alertMessage: String) {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setMessage(alertMessage)
+        alertDialogBuilder.setNeutralButton("Ok") { _, _ -> null}
+        alertDialogBuilder.show()
+        showLoadingSpinner(false)
+    }
+
+    private fun showLoadingSpinner(visible: Boolean) {
+        val loadingSpinner = findViewById<ProgressBar>(R.id.loading_spinner)
+        val departuresTable = findViewById<RecyclerView>(R.id.departures_table)
+        if (visible) {
+            loadingSpinner.visibility = View.VISIBLE
+            departuresTable.visibility = View.INVISIBLE
+        } else {
+            loadingSpinner.visibility = View.INVISIBLE
+            departuresTable.visibility = View.VISIBLE
+        }
     }
 }

@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">KotlinMPP</string>
     <string name="search_button_label">Search</string>
+    <string name="alert_message">Invalid choice</string>
+    <string name="main_title">TrainBoard</string>
 </resources>

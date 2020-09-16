@@ -8,7 +8,7 @@ import kotlin.math.round
 expect fun platformName(): String
 
 fun createApplicationScreenMessage(): String {
-    return "Kotlin Rocks on ${platformName()}"
+    return "TrainBoard"
 }
 
 fun roundToDecimalPlace(arg: Double, decimalPlaces: Int): String {
