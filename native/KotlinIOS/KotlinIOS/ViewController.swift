@@ -23,8 +23,6 @@ class ViewController: UIViewController, ApplicationContractView {
         self.arrivalPicker.dataSource = self
         setupTableView()
         tableView.isHidden = true
-        setDepartureStation()
-        setArrivalStation()
     }
     
     @IBAction func onJourneySelected(_ sender: Any) {
@@ -72,10 +70,12 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func setDepartureDropdown(stationList: Array<String>) {
         stationData = stationList
         self.departurePicker.reloadComponent(0)
+        setDepartureStation()
     }
     func setArrivalDropdown(stationList: Array<String>) {
         stationData = stationList
         self.arrivalPicker.reloadComponent(0)
+        setArrivalStation()
     }
 }
 
