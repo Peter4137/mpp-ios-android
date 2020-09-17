@@ -98,7 +98,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         launch {
             val allStationDetails = getAllStationDetails()
             buildStationNamesList(allStationDetails)
-            println(List(allStations.size) {i -> allStations[i].name})
             view!!.setDepartureDropdown(List(allStations.size) {i -> allStations[i].name})
             view!!.setArrivalDropdown(List(allStations.size) {i -> allStations[i].name})
         }
