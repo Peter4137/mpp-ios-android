@@ -18,8 +18,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private lateinit var departures: MutableList<DepartureInformation>
-
     private lateinit var departureTime: String
+
     private lateinit var presenter: ApplicationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +29,13 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
+        setListeners()
+        setUpDeparturesTable()
+    }
+
+    private fun setListeners() {
+        val searchButton = findViewById<Button>(R.id.button)
+        searchButton.setOnClickListener {
             showLoadingSpinner(true)
             presenter.onButtonTapped()
         }
@@ -40,7 +45,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             val intent = Intent(this, AdvancedSearchActivity::class.java)
             startActivityForResult(intent, 2)
         }
-        
+
         val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
         departureSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -56,10 +61,12 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
                 presenter.setArrivalStation(arrivalSpinner.getItemAtPosition(position) as String)
             }
         }
+    }
 
+    private fun setUpDeparturesTable() {
         departures = mutableListOf()
 
-        viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
+        viewManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewAdapter = TableAdapter(departures)
         recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
             layoutManager = viewManager
