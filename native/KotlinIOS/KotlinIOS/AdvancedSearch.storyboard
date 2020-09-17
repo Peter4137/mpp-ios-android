@@ -45,7 +45,7 @@
                                             <constraint firstAttribute="height" constant="40" id="ENB-vJ-uPu"/>
                                             <constraint firstAttribute="width" constant="90" id="IFI-t3-Grw"/>
                                         </constraints>
-                                        <state key="normal" title="Apply">
+                                        <state key="normal" title="Search">
                                             <color key="titleColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>

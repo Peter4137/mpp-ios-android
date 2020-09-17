@@ -4,7 +4,7 @@ import SharedCode
 
 class AdvancedSearchViewController: UIViewController {
 
-    var delegate: advancedSearchDelegate?
+    var delegate: AdvancedSearchDelegate?
     
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var dismissButton: UIButton!
@@ -22,10 +22,8 @@ class AdvancedSearchViewController: UIViewController {
         dismiss(animated: true)
     }
     @IBAction func didTapApply(_ sender: Any) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let dateString = dateFormatter.string(from: datePicker.date)
-        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: dateString)
+        
+        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: datePicker.date)
         dismiss(animated: true)
     }
     @IBAction func incrementAdults(_ sender: Any) {
@@ -37,7 +35,6 @@ class AdvancedSearchViewController: UIViewController {
     }
 }
 
-protocol advancedSearchDelegate
-{
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String)
+protocol AdvancedSearchDelegate {
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date)
 }

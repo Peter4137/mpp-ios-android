@@ -3,7 +3,7 @@ import SharedCode
 
 
 
-class ViewController: UIViewController, ApplicationContractView, advancedSearchDelegate {
+class ViewController: UIViewController, ApplicationContractView, AdvancedSearchDelegate, AdvancedSearchCollectionDelegate {
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
@@ -15,7 +15,7 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = []
     private var departuresData: [DepartureInformation] = []
-    private var advancedSearchChoices: [String] = []
+    private var advancedSearchChoices: [AdvancedSearchCellInformation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,50 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
         setArrivalStation()
     }
     
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String) {
-        populateAdvancedSearchCollection()
+    func formatDateForAPI(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    func formatDateForDisplay(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd HH:mm"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date) {
+        let adultsChoice = "Adults: " + String(numAdults)
+        let childrenChoice = "Children: " + String(numChildren)
+        let dateChoice = formatDateForDisplay(date: date)
+        populateAdvancedSearchCollection(choiceList: [
+                AdvancedSearchCellInformation(label: adultsChoice, dataType: "ADULTS"),
+                AdvancedSearchCellInformation(label: childrenChoice, dataType: "CHILDREN"),
+                AdvancedSearchCellInformation(label: dateChoice, dataType: "DATE")
+                ])
         presenter.setNumAdults(numAdults: Int32(numAdults))
         presenter.setNumChildren(numChildren: Int32(numChildren))
-        presenter.setDepartureTime(departureTime: date)
+        presenter.setDepartureTime(departureTime: formatDateForAPI(date: date))
+        findJourneysPressed()
+    }
+    
+    func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell) {
+        let indexPath = advancedSearchCollectionView.indexPath(for: cell)
+        advancedSearchChoices.remove(at: indexPath!.row)
+        advancedSearchCollectionView.reloadData()
+        switch cell.dataType {
+        case "ADULTS":
+            presenter.setNumAdults(numAdults: 0)
+        case "CHILDREN":
+            presenter.setNumChildren(numChildren: 0)
+        case "DATE":
+            let timeNow = formatDateForAPI(date: Date())
+            presenter.setDepartureTime(departureTime: timeNow)
+        default:
+            showAlertMessage(alertMessage: "Choice removed did not have valid identifier")
+        }
     }
     
     @IBAction func showAdvancedSearch(_ sender: Any) {
@@ -46,6 +85,11 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
     }
     
     @IBAction func onJourneySelected(_ sender: Any) {
+        findJourneysPressed()
+    }
+    
+    
+    func findJourneysPressed() {
         tableView.isHidden = true
         activityIndicatorView.startAnimating()
         presenter.onButtonTapped()
@@ -128,21 +172,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0;//Choose your custom row height
+        return 80.0
     }
 }
 
-extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupAdvancedSearchCollectionView() {
-        advancedSearchCollectionView.delegate = self
-        advancedSearchCollectionView.dataSource = self
-        self.advancedSearchCollectionView.register(AdvancedSearchViewCell.self, forCellWithReuseIdentifier: "advancedSearchCell")
+        self.advancedSearchCollectionView.delegate = self
+        self.advancedSearchCollectionView.dataSource = self
+        self.advancedSearchCollectionView.register(AdvancedSearchViewCell.self, forCellWithReuseIdentifier: "cell")
         self.advancedSearchCollectionView.reloadData()
     }
     
-    func populateAdvancedSearchCollection() {
-        advancedSearchChoices = ["cell A", "cell B", "cell C"]
+    func populateAdvancedSearchCollection(choiceList: [AdvancedSearchCellInformation]) {
+        advancedSearchChoices = choiceList
         advancedSearchCollectionView.reloadData()
     }
     
@@ -155,10 +199,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: "advancedSearchCell", for: indexPath) as! AdvancedSearchViewCell
-        cell.backgroundColor = .black
+        let cell = advancedSearchCollectionView.dequeueReusableCell(withReuseIdentifier: "advancedSearchCell", for: indexPath) as! AdvancedSearchViewCell
+        cell.delegate = self
+        cell.choiceLabel!.text = advancedSearchChoices[indexPath.row].label
+        cell.dataType = advancedSearchChoices[indexPath.row].dataType
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidthEstimate = advancedSearchChoices[indexPath.row].label.count * 10 + 25
+        return CGSize(width: cellWidthEstimate, height: 30)
+    }
+
 }

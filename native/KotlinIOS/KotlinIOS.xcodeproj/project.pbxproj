@@ -20,6 +20,7 @@
 		A9992938251241F6002DB7D3 /* AdvancedSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9992937251241F6002DB7D3 /* AdvancedSearch.storyboard */; };
 		A999293A25124349002DB7D3 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999293925124349002DB7D3 /* AdvancedSearchViewController.swift */; };
 		A999293E25135AAB002DB7D3 /* AdvancedSearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999293D25135AAB002DB7D3 /* AdvancedSearchViewCell.swift */; };
+		A999294325138833002DB7D3 /* AdvancedSearchCellInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999294225138833002DB7D3 /* AdvancedSearchCellInformation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		A9992937251241F6002DB7D3 /* AdvancedSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AdvancedSearch.storyboard; sourceTree = "<group>"; };
 		A999293925124349002DB7D3 /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
 		A999293D25135AAB002DB7D3 /* AdvancedSearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewCell.swift; sourceTree = "<group>"; };
+		A999294225138833002DB7D3 /* AdvancedSearchCellInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchCellInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			children = (
 				47729E0522F447C800B9B36B /* AppDelegate.swift */,
 				47729E0722F447C800B9B36B /* ViewController.swift */,
+				A999294225138833002DB7D3 /* AdvancedSearchCellInformation.swift */,
 				47729E0922F447C800B9B36B /* Main.storyboard */,
 				A9992937251241F6002DB7D3 /* AdvancedSearch.storyboard */,
 				A999293925124349002DB7D3 /* AdvancedSearchViewController.swift */,
@@ -312,6 +315,7 @@
 			files = (
 				A999293A25124349002DB7D3 /* AdvancedSearchViewController.swift in Sources */,
 				A999293E25135AAB002DB7D3 /* AdvancedSearchViewCell.swift in Sources */,
+				A999294325138833002DB7D3 /* AdvancedSearchCellInformation.swift in Sources */,
 				47729E0822F447C800B9B36B /* ViewController.swift in Sources */,
 				A96C854B250BC24C0062601C /* DeparturesTableViewCell.swift in Sources */,
 				47729E0622F447C800B9B36B /* AppDelegate.swift in Sources */,

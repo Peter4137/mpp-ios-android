@@ -1,22 +1,23 @@
-//
-//  AdvancedSearchViewCell.swift
-//  KotlinIOS
-//
-//  Created by Peter Robinson on 17/09/2020.
-//  Copyright © 2020 Evgeny Petrenko. All rights reserved.
-//
-
 import UIKit
 
 class AdvancedSearchViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var cellLabel: UILabel!
+    var delegate: AdvancedSearchCollectionDelegate?
+    var dataType: String = ""
+    
+    @IBOutlet weak var choiceLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.contentView.layer.cornerRadius = 16.0
     }
     
     @IBAction func cancelButton(_ sender: Any) {
+        delegate?.removeAdvancedSearchChoice(cell: self)
     }
     
+}
+
+protocol AdvancedSearchCollectionDelegate {
+    func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell)
 }
