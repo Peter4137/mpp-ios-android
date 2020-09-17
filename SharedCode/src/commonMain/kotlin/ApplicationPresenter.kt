@@ -18,9 +18,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
 
-    private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-    private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
-    private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
+    private var searchInformation = SearchInformation("", "", getTimeNow(), 1, 0)
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
     private val allStations = mutableListOf<StationInformation>()
@@ -70,6 +68,11 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 view!!.showAlertMessage("API call failed")
             }
         }
+    }
+
+    override fun getTimeNow(): String {
+        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+        return DateTimeTz.nowLocal().format(dateTimeFormat)
     }
 
     override fun setDepartureStation(departureStation: String) {

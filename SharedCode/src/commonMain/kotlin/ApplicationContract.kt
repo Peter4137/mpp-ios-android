@@ -15,6 +15,7 @@ interface ApplicationContract {
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
         abstract fun onButtonTapped()
+        abstract fun getTimeNow(): String
         abstract fun setDepartureStation(departureStation: String)
         abstract fun setArrivalStation(arrivalStation: String)
         abstract fun setDepartureTime(departureTime: String)

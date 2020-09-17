@@ -11,6 +11,7 @@ import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
+import com.soywiz.klock.DateTimeTz
 import kotlinx.android.synthetic.main.activity_pop_up_window.*
 import java.util.*
 
@@ -93,15 +94,16 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("numAdults", getNumAdults() )
         intent.putExtra("numChildren", getNumChildren())
-        if (timeChanged){
-            intent.putExtra("time", getDateInAPIFormat())
-        } else {
-            intent.putExtra("time", "Unset")
-        }
+        intent.putExtra("time", getDateInAPIFormat())
+        intent.putExtra("timeText", getTimeText())
         setResult(2, intent)
         finish()
     }
     private fun getDateInAPIFormat(): String {
+        if (!timeChanged){
+            val dateTimeFormat = com.soywiz.klock.DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+            return DateTimeTz.nowLocal().format(dateTimeFormat)
+        }
         return "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000"
     }
     private fun showDatePicker() {
@@ -146,6 +148,10 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         textView.text = getTimeText()
     }
     private fun getTimeText(): String {
+        if (!timeChanged){
+            val dateTimeFormat = com.soywiz.klock.DateFormat("dd/mm, HH:mm")
+            return DateTimeTz.nowLocal().format(dateTimeFormat)
+        }
         return "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
     }
     private fun makeNumberTwoDigits(number: Int): String {

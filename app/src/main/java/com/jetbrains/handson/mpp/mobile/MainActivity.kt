@@ -8,10 +8,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         }
         val departureTimeButton = findViewById<Button>(R.id.selected_time)
         departureTimeButton.setOnClickListener() {
-            presenter.setDepartureTime(departureTime)//timeNow?
+            presenter.setDepartureTime(presenter.getTimeNow())
             departureTimeButton.visibility = View.INVISIBLE
             searchButton.performClick()
         }
