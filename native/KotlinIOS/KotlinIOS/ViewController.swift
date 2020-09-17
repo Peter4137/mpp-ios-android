@@ -24,8 +24,6 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
         self.arrivalPicker.dataSource = self
         setupTableView()
         tableView.isHidden = true
-        setDepartureStation()
-        setArrivalStation()
     }
     
     func applyButtonPressed(numAdults: Int, numChildren: Int, date: String) {
@@ -85,10 +83,12 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func setDepartureDropdown(stationList: Array<String>) {
         stationData = stationList
+        setDepartureStation()
         self.departurePicker.reloadComponent(0)
     }
     func setArrivalDropdown(stationList: Array<String>) {
         stationData = stationList
+        setArrivalStation()
         self.arrivalPicker.reloadComponent(0)
     }
 }

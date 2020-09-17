@@ -1,5 +1,6 @@
 package com.jetbrains.handson.mpp.mobile
 
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -54,10 +55,17 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         timeView.text = "Today, Now"
     }
 
+    override fun showAlertMessage(alertMessage: String) {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setMessage(alertMessage)
+        alertDialogBuilder.setNeutralButton("Ok") { _, _ -> null}
+        alertDialogBuilder.show()
+    }
+
     private fun setListeners() {
         val exitPopUpButton = findViewById<Button>(R.id.submit_advanced_search)
         exitPopUpButton.setOnClickListener {
-            submitAdvancedSearch()
+            presenter.submitSearch(getNumAdults(), getNumChildren(), getDateInAPIFormat())
         }
 
         textView = findViewById(R.id.in_date)
@@ -69,29 +77,32 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val numAdultsView = findViewById<TextView>(R.id.in_num_adults)
         val numChildrenView = findViewById<TextView>(R.id.in_num_children)
         add_num_adults.setOnClickListener {
-            numAdultsView.text = presenter.stepValueXbyY(getNumAdults(),1).toString()
+            numAdultsView.text = stepValueXbyY(getNumAdults(),1).toString()
         }
         add_num_children.setOnClickListener {
-            numChildrenView.text = presenter.stepValueXbyY(getNumChildren(),1).toString()
+            numChildrenView.text = stepValueXbyY(getNumChildren(),1).toString()
         }
         minus_num_adults.setOnClickListener {
-            numAdultsView.text = presenter.stepValueXbyY(getNumAdults(),-1).toString()
+            numAdultsView.text = stepValueXbyY(getNumAdults(),-1).toString()
         }
         minus_num_children.setOnClickListener {
-            numChildrenView.text = presenter.stepValueXbyY(getNumChildren(),-1).toString()
+            numChildrenView.text = stepValueXbyY(getNumChildren(),-1).toString()
         }
     }
-    private fun submitAdvancedSearch() {
+    override fun submitAdvancedSearch() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("numAdults", getNumAdults() )
         intent.putExtra("numChildren", getNumChildren())
         if (timeChanged){
-            intent.putExtra("time", "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000")
+            intent.putExtra("time", getDateInAPIFormat())
         } else {
             intent.putExtra("time", "Unset")
         }
         setResult(2, intent)
         finish()
+    }
+    private fun getDateInAPIFormat(): String {
+        return "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000"
     }
     private fun showDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
@@ -101,6 +112,13 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val datePickerDialog =
             DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
         datePickerDialog.show()
+    }
+    private fun stepValueXbyY(x: Int, y: Int): Int {
+        val newValue = x+y
+        if (newValue>=0){
+            return newValue
+        }
+        return x
     }
     private fun getNumAdults(): Int {
         val numAdultsView = findViewById<TextView>(R.id.in_num_adults)

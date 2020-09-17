@@ -1,5 +1,6 @@
 package com.jetbrains.handson.mpp.mobile
 
+import com.soywiz.klock.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
@@ -17,11 +18,29 @@ class AdvancedSearchPresenter: AdvancedSearchContract.Presenter() {
         this.view = view
     }
 
-    override fun stepValueXbyY(x: Int, y: Int): Int {
-        val newValue = x+y
-        if (newValue>=0){
-            return newValue
+    override fun submitSearch(numAdults: Int, numChildren: Int, date: String) {
+        val maxNumPassengers = 9
+        val minNumPassengers = 1
+        val totalPassengersSelected = numAdults + numChildren
+
+//        val today = DateTime.now()
+//        val inOneYear = DateTime.now() + 1.years
+//        val dateRange = today until inOneYear
+//        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+//        val dateAsDateTimeTz: DateTimeTz = dateTimeFormat.parse(date)
+//        val dateAsDateTime: DateTime = dateAsDateTimeTz.local
+//        val dateInFuture: Boolean = dateAsDateTime in dateRange
+
+        val dateInFuture = true //hardcoded until above fixed
+
+        if (minNumPassengers>totalPassengersSelected || totalPassengersSelected>maxNumPassengers) {
+            view!!.showAlertMessage("Number of passengers must be between $minNumPassengers and $maxNumPassengers")
+        } else if (!dateInFuture) {
+            view!!.showAlertMessage("Departure time must be in the future")
+        } else {
+            view!!.submitAdvancedSearch()
         }
-        return x
     }
+
+
 }
