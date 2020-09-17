@@ -13,7 +13,7 @@ import android.widget.TimePicker
 import kotlinx.android.synthetic.main.activity_pop_up_window.*
 import java.util.*
 
-class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
+class AdvancedSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
         lateinit var textView: TextView
         lateinit var button: Button
@@ -55,7 +55,7 @@ class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
             month = calendar.get(Calendar.MONTH)
             year = calendar.get(Calendar.YEAR)
             val datePickerDialog =
-                DatePickerDialog(this@PopUpWindow, this@PopUpWindow, year, month,day)
+                DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
             datePickerDialog.show()
         }
 
@@ -100,7 +100,7 @@ class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         val calendar: Calendar = Calendar.getInstance()
         hour = calendar.get(Calendar.HOUR)
         minute = calendar.get(Calendar.MINUTE)
-        val timePickerDialog = TimePickerDialog(this@PopUpWindow, this@PopUpWindow, hour, minute,
+        val timePickerDialog = TimePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, hour, minute,
             DateFormat.is24HourFormat(this))
         timePickerDialog.show()
     }
