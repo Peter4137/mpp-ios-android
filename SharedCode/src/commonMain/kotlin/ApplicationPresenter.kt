@@ -17,7 +17,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val dispatchers = AppDispatchersImpl()
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
-    
+
     private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
     private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
