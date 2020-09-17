@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/time"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -17,10 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/in_date"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/time"
         app:layout_constraintLeft_toRightOf="@id/time"
         app:layout_constraintTop_toTopOf="@id/time" />
@@ -36,6 +39,7 @@
         app:layout_constraintTop_toTopOf="@id/in_date" />
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/num_of_adults"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -45,10 +49,12 @@
         app:layout_constraintTop_toBottomOf="@id/time" />
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/in_num_adults"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/num_of_adults"
         app:layout_constraintLeft_toRightOf="@id/num_of_adults"
         app:layout_constraintTop_toTopOf="@id/num_of_adults" />
@@ -57,9 +63,9 @@
         android:id="@+id/add_num_adults"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:text="@string/plus"
-        app:layout_constraintLeft_toRightOf="@id/in_num_adults"
+        app:layout_constraintLeft_toLeftOf="@id/btn_date"
         app:layout_constraintTop_toTopOf="@id/in_num_adults"
         app:layout_constraintBottom_toBottomOf="@id/in_num_adults"/>
 
@@ -67,12 +73,14 @@
         android:id="@+id/minus_num_adults"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/minus"
         app:layout_constraintTop_toTopOf="@id/add_num_adults"
         app:layout_constraintBottom_toBottomOf="@id/add_num_adults"
-        app:layout_constraintLeft_toRightOf="@id/add_num_adults" />
+        app:layout_constraintRight_toRightOf="@id/btn_date" />
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/num_of_children"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -82,10 +90,12 @@
         app:layout_constraintTop_toBottomOf="@id/num_of_adults" />
 
     <TextView
+        style="@style/SubHeading"
         android:id="@+id/in_num_children"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="10dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/num_of_children"
         app:layout_constraintLeft_toRightOf="@id/num_of_children"
         app:layout_constraintTop_toTopOf="@id/num_of_children" />
@@ -94,9 +104,8 @@
         android:id="@+id/add_num_children"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="20dp"
         android:text="@string/plus"
-        app:layout_constraintLeft_toRightOf="@id/in_num_children"
+        app:layout_constraintLeft_toLeftOf="@id/add_num_adults"
         app:layout_constraintTop_toTopOf="@id/in_num_children"
         app:layout_constraintBottom_toBottomOf="@id/in_num_children"/>
 
@@ -107,17 +116,15 @@
         android:text="@string/minus"
         app:layout_constraintTop_toTopOf="@id/add_num_children"
         app:layout_constraintBottom_toBottomOf="@id/add_num_children"
-        app:layout_constraintLeft_toRightOf="@id/add_num_children" />
+        app:layout_constraintRight_toRightOf="@id/minus_num_adults" />
 
     <Button
-        style="@style/StandardButton"
         android:id="@+id/submit_advanced_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/StandardButton"
         android:layout_marginTop="60dp"
-        android:text="@string/search_button_label"
+        android:text="@string/find_journeys_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/num_of_children"/>
+        app:layout_constraintTop_toBottomOf="@id/num_of_children" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
