@@ -10,10 +10,12 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
     @IBOutlet private var label: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var advancedSearchCollectionView: UICollectionView!
     
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = []
     private var departuresData: [DepartureInformation] = []
+    private var advancedSearchChoices: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +25,14 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         setupTableView()
+        setupAdvancedSearchCollectionView()
         tableView.isHidden = true
         setDepartureStation()
         setArrivalStation()
     }
     
     func applyButtonPressed(numAdults: Int, numChildren: Int, date: String) {
+        populateAdvancedSearchCollection()
         presenter.setNumAdults(numAdults: Int32(numAdults))
         presenter.setNumChildren(numChildren: Int32(numChildren))
         presenter.setDepartureTime(departureTime: date)
@@ -126,4 +130,35 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80.0;//Choose your custom row height
     }
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func setupAdvancedSearchCollectionView() {
+        advancedSearchCollectionView.delegate = self
+        advancedSearchCollectionView.dataSource = self
+        self.advancedSearchCollectionView.register(AdvancedSearchViewCell.self, forCellWithReuseIdentifier: "advancedSearchCell")
+        self.advancedSearchCollectionView.reloadData()
+    }
+    
+    func populateAdvancedSearchCollection() {
+        advancedSearchChoices = ["cell A", "cell B", "cell C"]
+        advancedSearchCollectionView.reloadData()
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return advancedSearchChoices.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView
+            .dequeueReusableCell(withReuseIdentifier: "advancedSearchCell", for: indexPath) as! AdvancedSearchViewCell
+        cell.backgroundColor = .black
+        return cell
+    }
+    
 }
