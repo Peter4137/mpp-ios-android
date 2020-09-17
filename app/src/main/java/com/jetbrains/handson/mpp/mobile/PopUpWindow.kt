@@ -40,8 +40,10 @@ class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
             intent.putExtra("numChildren", getNumChildren())
             if (timeChanged){
                 intent.putExtra("time", "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000")
+                intent.putExtra("timeText", getTimeText())
             } else {
-                intent.putExtra("time", "Unset")
+                intent.putExtra("time", "Today, Now")
+                intent.putExtra("timeText", "Today, Now")
             }
             setResult(2, intent)
             finish()
@@ -107,9 +109,11 @@ class PopUpWindow : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         myHour = hourOfDay
         myMinute = minute
-        val timeText = "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
         timeChanged = true
-        textView.text = timeText
+        textView.text = getTimeText()
+    }
+    private fun getTimeText(): String {
+        return "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
     }
     private fun makeNumberTwoDigits(number: Int): String {
         if (number.toString().length==1){

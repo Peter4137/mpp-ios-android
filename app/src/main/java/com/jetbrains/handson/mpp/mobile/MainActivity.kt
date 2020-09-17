@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
@@ -32,12 +34,12 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         val presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-        val button = findViewById<Button>(R.id.button)
-        button.setOnClickListener {
+        val searchButton = findViewById<Button>(R.id.button)
+        searchButton.setOnClickListener {
             showLoadingSpinner(true)
             presenter.setNumAdults(numAdults)
             presenter.setNumChildren(numChildren)
-            if (departureTime=="Unset"){
+            if (departureTime=="Today, Now"){
                 departureTime=timeNow
             }
             presenter.setDepartureTime(departureTime)
@@ -49,6 +51,27 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             val intent = Intent(this, PopUpWindow::class.java)
             startActivityForResult(intent, 2)
         }
+
+        val adultsButton = findViewById<Button>(R.id.selected_adults)
+        adultsButton.setOnClickListener() {
+            numAdults = 1
+            adultsButton.visibility = View.INVISIBLE
+            searchButton.performClick()
+        }
+        val childrenButton = findViewById<Button>(R.id.selected_children)
+        childrenButton.setOnClickListener() {
+            numChildren = 0
+            childrenButton.visibility = View.INVISIBLE
+            searchButton.performClick()
+        }
+        val departureTimeButton = findViewById<Button>(R.id.selected_time)
+        departureTimeButton.setOnClickListener() {
+            departureTime = timeNow
+            departureTimeButton.visibility = View.INVISIBLE
+            searchButton.performClick()
+        }
+
+
         
         val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
         departureSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -137,8 +160,17 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         if (requestCode == 2) {
             if (data != null) {
                 numAdults = data.getIntExtra("numAdults",1)
+                val adultsButton = findViewById<Button>(R.id.selected_adults)
+                adultsButton.text = "Adults: $numAdults"
+                adultsButton.visibility = View.VISIBLE
                 numChildren = data.getIntExtra("numChildren", 0)
+                val childrenButton = findViewById<Button>(R.id.selected_children)
+                childrenButton.text = "Children: $numChildren"
+                childrenButton.visibility = View.VISIBLE
                 departureTime = data.getStringExtra("time")
+                val departureTimeButton = findViewById<Button>(R.id.selected_time)
+                departureTimeButton.text = data.getStringExtra("timeText")
+                departureTimeButton.visibility = View.VISIBLE
                 val searchButton = findViewById<Button>(R.id.button)
                 searchButton.performClick()
             }
