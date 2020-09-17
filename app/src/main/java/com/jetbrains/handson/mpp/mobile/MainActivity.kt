@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         val adultsButton = findViewById<Button>(R.id.selected_adults)
         adultsButton.setOnClickListener() {
-            numAdults = 1
+            numAdults = 0
             adultsButton.visibility = View.INVISIBLE
             searchButton.performClick()
         }
