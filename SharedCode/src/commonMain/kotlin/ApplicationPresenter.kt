@@ -24,7 +24,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
-    private val stationNameToCodeMapping = mutableMapOf<String, String>()
+    private val allStations = mutableListOf<StationInformation>()
 
 
     private val client = HttpClient() {
@@ -98,8 +98,9 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         launch {
             val allStationDetails = getAllStationDetails()
             buildStationNamesList(allStationDetails)
-            view!!.setDepartureDropdown(stationNameToCodeMapping.keys.toList())
-            view!!.setArrivalDropdown(stationNameToCodeMapping.keys.toList())
+            println(List(allStations.size) {i -> allStations[i].name})
+            view!!.setDepartureDropdown(List(allStations.size) {i -> allStations[i].name})
+            view!!.setArrivalDropdown(List(allStations.size) {i -> allStations[i].name})
         }
     }
 
@@ -107,7 +108,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         for (stationCode in stationCodes) {
             for (stationInformation in allStationDetails.stations) {
                 if (stationInformation.crs == stationCode) {
-                    stationNameToCodeMapping[stationInformation.name] = stationCode
+                    allStations.add(stationInformation)
                 }
             }
         }
@@ -119,13 +120,13 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     private fun matchStationNameToCode(stationName: String): String {
-        var matchedCode = ""
-        try {
-            matchedCode = stationNameToCodeMapping[stationName]!!
-        } catch (e: Exception) {
-            view!!.showAlertMessage("Invalid station name")
+        for (station in allStations) {
+            if (stationName == station.name) {
+                return station.crs!!
+            }
         }
-        return matchedCode
+        view!!.showAlertMessage("Invalid station name")
+        return ""
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
