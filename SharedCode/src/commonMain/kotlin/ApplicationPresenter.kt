@@ -40,7 +40,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             return
         }
 
-
         val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?" +
                 "originStation=${searchInformation.departureStation}&" +
                 "destinationStation=${searchInformation.arrivalStation}&" +
