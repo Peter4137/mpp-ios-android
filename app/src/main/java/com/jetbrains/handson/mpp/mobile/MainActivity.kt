@@ -139,6 +139,8 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
                 numAdults = data.getIntExtra("numAdults",1)
                 numChildren = data.getIntExtra("numChildren", 0)
                 departureTime = data.getStringExtra("time")
+                val searchButton = findViewById<Button>(R.id.button)
+                searchButton.performClick()
             }
         }
     }
