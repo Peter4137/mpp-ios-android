@@ -20,8 +20,8 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val job: Job = SupervisorJob()
 
     private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-    private val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
-    private var searchInformation = SearchInformation("","",timeNow,1,0)
+    private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
+    private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
 
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job

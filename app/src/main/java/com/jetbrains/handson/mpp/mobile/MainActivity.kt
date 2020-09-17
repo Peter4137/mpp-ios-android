@@ -19,34 +19,25 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
     private lateinit var departures: MutableList<DepartureInformation>
 
-    private var numAdults = 1
-    private var numChildren = 0
-    private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-    private val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
-    private var departureTime = timeNow
+    private lateinit var departureTime: String
+    private lateinit var presenter: ApplicationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val presenter = ApplicationPresenter()
+        presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
             showLoadingSpinner(true)
-            presenter.setNumAdults(numAdults)
-            presenter.setNumChildren(numChildren)
-            if (departureTime=="Unset"){
-                departureTime=timeNow
-            }
-            presenter.setDepartureTime(departureTime)
             presenter.onButtonTapped()
         }
 
         val advancedSearchButton = findViewById<TextView>(R.id.advanced_search)
         advancedSearchButton.setOnClickListener {
-            val intent = Intent(this, PopUpWindow::class.java)
+            val intent = Intent(this, AdvancedSearchActivity::class.java)
             startActivityForResult(intent, 2)
         }
         
@@ -136,9 +127,16 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 2) {
             if (data != null) {
-                numAdults = data.getIntExtra("numAdults",1)
-                numChildren = data.getIntExtra("numChildren", 0)
+                val numAdults = data.getIntExtra("numAdults",1)
+                presenter.setNumAdults(numAdults)
+                val numChildren = data.getIntExtra("numChildren", 0)
+                presenter.setNumChildren(numChildren)
                 departureTime = data.getStringExtra("time")
+                if (departureTime=="Unset"){
+                    val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+                    departureTime=DateTimeTz.nowLocal().format(dateTimeFormat)
+                }
+                presenter.setDepartureTime(departureTime)
             }
         }
     }
