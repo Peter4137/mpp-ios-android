@@ -5,7 +5,6 @@ import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimeSpan
 import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
-import io.ktor.client.features.HttpTimeout
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
@@ -26,9 +25,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
     private val allStations = mutableListOf<StationInformation>()
-
-    private var chosenDepartureStation: String = ""
-    private var chosenArrivalStation: String = ""
 
     private val client = HttpClient() {
         install(JsonFeature) {
