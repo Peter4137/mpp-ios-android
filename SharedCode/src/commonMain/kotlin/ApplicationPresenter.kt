@@ -19,18 +19,27 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
 
+    private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+    private val allStations = mutableListOf<StationInformation>()
+
     private var chosenDepartureStation: String = ""
     private var chosenArrivalStation: String = ""
+
+    private val client = HttpClient() {
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json.nonstrict)
+        }
+    }
+
+    private val baseURL = "https://mobile-api-dev.lner.co.uk/v1/"
 
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
-        val stationList = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+        buildStationDropdowns()
         view.setLabel(createApplicationScreenMessage())
-        view.setDepartureDropdown(stationList)
-        view.setArrivalDropdown(stationList)
     }
 
     override fun onButtonTapped() {
@@ -41,16 +50,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
         val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
-
-        val client = HttpClient() {
-            install(HttpTimeout) {
-                requestTimeoutMillis = 3000
-            }
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(Json.nonstrict)
-            }
-        }
+        val apiCall = baseURL + "fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
 
         launch {
             try {
@@ -67,11 +67,45 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        chosenDepartureStation = departureStation
+        chosenDepartureStation = matchStationNameToCode(departureStation)
     }
 
     override fun setArrivalStation(arrivalStation: String) {
-        chosenArrivalStation = arrivalStation
+        chosenArrivalStation = matchStationNameToCode(arrivalStation)
+    }
+
+    private fun buildStationDropdowns() {
+        launch {
+            val allStationDetails = getAllStationDetails()
+            buildStationNamesList(allStationDetails)
+            view!!.setDepartureDropdown(List(allStations.size) {i -> allStations[i].name})
+            view!!.setArrivalDropdown(List(allStations.size) {i -> allStations[i].name})
+        }
+    }
+
+    private fun buildStationNamesList(allStationDetails: StationDetails) {
+        for (stationCode in stationCodes) {
+            for (stationInformation in allStationDetails.stations) {
+                if (stationInformation.crs == stationCode) {
+                    allStations.add(stationInformation)
+                }
+            }
+        }
+    }
+
+    private suspend fun getAllStationDetails(): StationDetails {
+        val apiCall = baseURL + "stations"
+        return client.get(apiCall)
+    }
+
+    private fun matchStationNameToCode(stationName: String): String {
+        for (station in allStations) {
+            if (stationName == station.name) {
+                return station.crs!!
+            }
+        }
+        view!!.showAlertMessage("Invalid station name")
+        return ""
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {
