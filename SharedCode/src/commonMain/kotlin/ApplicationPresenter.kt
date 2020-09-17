@@ -17,7 +17,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val dispatchers = AppDispatchersImpl()
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
-
+    
     private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
     private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
     private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
@@ -47,7 +47,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             view!!.showAlertMessage("Stations cannot match")
             return
         }
-        
+
         val apiCall = baseURL + "fares?" +
                 "originStation=${searchInformation.departureStation}&" +
                 "destinationStation=${searchInformation.arrivalStation}&" +
@@ -75,7 +75,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     override fun setDepartureStation(departureStation: String) {
         searchInformation.departureStation = matchStationNameToCode(departureStation)
     }
-
+  
     override fun setArrivalStation(arrivalStation: String) {
         searchInformation.arrivalStation = matchStationNameToCode(arrivalStation)
     }
