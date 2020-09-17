@@ -5,7 +5,6 @@ import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimeSpan
 import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
-import io.ktor.client.features.HttpTimeout
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
@@ -20,18 +19,27 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private val job: Job = SupervisorJob()
 
     private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-    private val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
-    private var searchInformation = SearchInformation("","",timeNow,1,0)
+    private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
+    private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
+
+    private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+    private val allStations = mutableListOf<StationInformation>()
+
+    private val client = HttpClient() {
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json.nonstrict)
+        }
+    }
+
+    private val baseURL = "https://mobile-api-dev.lner.co.uk/v1/"
 
     override val coroutineContext: CoroutineContext
         get() = dispatchers.main + job
 
     override fun onViewTaken(view: ApplicationContract.View) {
         this.view = view
-        val stationList = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
+        buildStationDropdowns()
         view.setLabel(createApplicationScreenMessage())
-        view.setDepartureDropdown(stationList)
-        view.setArrivalDropdown(stationList)
     }
 
     override fun onButtonTapped() {
@@ -40,8 +48,7 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
             return
         }
 
-
-        val apiCall = "https://mobile-api-dev.lner.co.uk/v1/fares?" +
+        val apiCall = baseURL + "fares?" +
                 "originStation=${searchInformation.departureStation}&" +
                 "destinationStation=${searchInformation.arrivalStation}&" +
                 "noChanges=false&" +
@@ -50,15 +57,6 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
                 "journeyType=single&" +
                 "outboundDateTime=${searchInformation.departureTime}&" +
                 "outboundIsArriveBy=false"
-
-        val client = HttpClient() {
-            install(HttpTimeout) {
-                requestTimeoutMillis = 3000
-            }
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(Json.nonstrict)
-            }
-        }
 
         launch {
             try {
@@ -75,11 +73,11 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        searchInformation.departureStation = departureStation
+        searchInformation.departureStation = matchStationNameToCode(departureStation)
     }
-
+  
     override fun setArrivalStation(arrivalStation: String) {
-        searchInformation.arrivalStation = arrivalStation
+        searchInformation.arrivalStation = matchStationNameToCode(arrivalStation)
     }
 
     override fun setDepartureTime(departureTime: String) {
@@ -92,6 +90,40 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
 
     override fun setNumChildren(numChildren: Int) {
         searchInformation.numChildren = numChildren
+    }
+
+    private fun buildStationDropdowns() {
+        launch {
+            val allStationDetails = getAllStationDetails()
+            buildStationNamesList(allStationDetails)
+            view!!.setDepartureDropdown(List(allStations.size) {i -> allStations[i].name})
+            view!!.setArrivalDropdown(List(allStations.size) {i -> allStations[i].name})
+        }
+    }
+
+    private fun buildStationNamesList(allStationDetails: StationDetails) {
+        for (stationCode in stationCodes) {
+            for (stationInformation in allStationDetails.stations) {
+                if (stationInformation.crs == stationCode) {
+                    allStations.add(stationInformation)
+                }
+            }
+        }
+    }
+
+    private suspend fun getAllStationDetails(): StationDetails {
+        val apiCall = baseURL + "stations"
+        return client.get(apiCall)
+    }
+
+    private fun matchStationNameToCode(stationName: String): String {
+        for (station in allStations) {
+            if (stationName == station.name) {
+                return station.crs!!
+            }
+        }
+        view!!.showAlertMessage("Invalid station name")
+        return ""
     }
 
     private fun buildDepartureInformation(journeyDetails: JourneyDetails): DepartureInformation {

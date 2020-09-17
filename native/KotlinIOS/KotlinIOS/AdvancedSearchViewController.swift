@@ -2,7 +2,7 @@ import UIKit
 import SharedCode
 
 
-class AdvancedSearchViewController: UIViewController {
+class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView {
 
     var delegate: advancedSearchDelegate?
     
@@ -13,6 +13,8 @@ class AdvancedSearchViewController: UIViewController {
     @IBOutlet weak var adultsStepper: UIStepper!
     @IBOutlet weak var childrenStepper: UIStepper!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     
     override func viewDidLoad() {
         super.viewDidLoad()
