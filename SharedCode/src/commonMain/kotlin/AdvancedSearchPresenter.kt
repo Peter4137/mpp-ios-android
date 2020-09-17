@@ -16,4 +16,12 @@ class AdvancedSearchPresenter: AdvancedSearchContract.Presenter() {
     override fun onViewTaken(view: AdvancedSearchContract.View) {
         this.view = view
     }
+
+    override fun stepValueXbyY(x: Int, y: Int): Int {
+        val newValue = x+y
+        if (newValue>=0){
+            return newValue
+        }
+        return x
+    }
 }

@@ -13,10 +13,12 @@ import android.widget.TimePicker
 import kotlinx.android.synthetic.main.activity_pop_up_window.*
 import java.util.*
 
-class AdvancedSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
+class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View, DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
+
+        private lateinit var presenter: AdvancedSearchPresenter
+
         lateinit var textView: TextView
-        lateinit var button: Button
         var day = 0
         var month: Int = 0
         var year: Int = 0
@@ -29,61 +31,76 @@ class AdvancedSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetLi
         var myMinute: Int = 0
         var timeChanged = false
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pop_up_window)
 
-        val exitPopUpButton = findViewById<Button>(R.id.submit_advanced_search)
-        exitPopUpButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("numAdults", getNumAdults() )
-            intent.putExtra("numChildren", getNumChildren())
-            if (timeChanged){
-                intent.putExtra("time", "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000")
-            } else {
-                intent.putExtra("time", "Unset")
-            }
-            setResult(2, intent)
-            finish()
-        }
+        presenter = AdvancedSearchPresenter()
+        presenter.onViewTaken(this)
 
-        textView = findViewById(R.id.in_date)
-        button = findViewById(R.id.btn_date)
-        button.setOnClickListener {
-            val calendar: Calendar = Calendar.getInstance()
-            day = calendar.get(Calendar.DAY_OF_MONTH)
-            month = calendar.get(Calendar.MONTH)
-            year = calendar.get(Calendar.YEAR)
-            val datePickerDialog =
-                DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
-            datePickerDialog.show()
-        }
+        setInitialValues()
+        setListeners()
 
+    }
+
+    private fun setInitialValues() {
         val numAdultsView = findViewById<TextView>(R.id.in_num_adults)
         numAdultsView.text = "1"
         val numChildrenView = findViewById<TextView>(R.id.in_num_children)
         numChildrenView.text = "0"
         val timeView = findViewById<TextView>(R.id.in_date)
         timeView.text = "Today, Now"
+    }
 
+    private fun setListeners() {
+        val exitPopUpButton = findViewById<Button>(R.id.submit_advanced_search)
+        exitPopUpButton.setOnClickListener {
+            submitAdvancedSearch()
+        }
+
+        textView = findViewById(R.id.in_date)
+        val dateButton = findViewById<Button>(R.id.btn_date)
+        dateButton.setOnClickListener {
+            showDatePicker()
+        }
+
+        val numAdultsView = findViewById<TextView>(R.id.in_num_adults)
+        val numChildrenView = findViewById<TextView>(R.id.in_num_children)
         add_num_adults.setOnClickListener {
-            numAdultsView.text = (getNumAdults() + 1).toString()
+            numAdultsView.text = presenter.stepValueXbyY(getNumAdults(),1).toString()
         }
         add_num_children.setOnClickListener {
-            numChildrenView.text = (getNumChildren() + 1).toString()
+            numChildrenView.text = presenter.stepValueXbyY(getNumChildren(),1).toString()
         }
         minus_num_adults.setOnClickListener {
-            val currentNumAdults = getNumAdults()
-            if (currentNumAdults>0) {
-                numAdultsView.text = (currentNumAdults - 1).toString()
-            }
+            numAdultsView.text = presenter.stepValueXbyY(getNumAdults(),-1).toString()
         }
         minus_num_children.setOnClickListener {
-            val currentNumChildren = getNumChildren()
-            if (currentNumChildren>0) {
-                numChildrenView.text = (currentNumChildren - 1).toString()
-            }
+            numChildrenView.text = presenter.stepValueXbyY(getNumChildren(),-1).toString()
         }
+    }
+    private fun submitAdvancedSearch() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("numAdults", getNumAdults() )
+        intent.putExtra("numChildren", getNumChildren())
+        if (timeChanged){
+            intent.putExtra("time", "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000")
+        } else {
+            intent.putExtra("time", "Unset")
+        }
+        setResult(2, intent)
+        finish()
+    }
+    private fun showDatePicker() {
+        val calendar: Calendar = Calendar.getInstance()
+        day = calendar.get(Calendar.DAY_OF_MONTH)
+        month = calendar.get(Calendar.MONTH)
+        year = calendar.get(Calendar.YEAR)
+        val datePickerDialog =
+            DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
+        datePickerDialog.show()
     }
     private fun getNumAdults(): Int {
         val numAdultsView = findViewById<TextView>(R.id.in_num_adults)
