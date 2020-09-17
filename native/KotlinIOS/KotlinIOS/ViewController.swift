@@ -27,8 +27,6 @@ class ViewController: UIViewController, ApplicationContractView, AdvancedSearchD
         setupTableView()
         setupAdvancedSearchCollectionView()
         tableView.isHidden = true
-        setDepartureStation()
-        setArrivalStation()
     }
     
     func formatDateForAPI(date: Date) -> String {
@@ -133,9 +131,15 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func setDepartureDropdown(stationList: Array<String>) {
         stationData = stationList
+        setDepartureStation()
+        self.departurePicker.reloadComponent(0)
+        setDepartureStation()
     }
     func setArrivalDropdown(stationList: Array<String>) {
         stationData = stationList
+        setArrivalStation()
+        self.arrivalPicker.reloadComponent(0)
+        setArrivalStation()
     }
 }
 
