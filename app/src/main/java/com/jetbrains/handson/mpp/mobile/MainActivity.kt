@@ -1,7 +1,5 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.DateFormat
-import com.soywiz.klock.DateTimeTz
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
