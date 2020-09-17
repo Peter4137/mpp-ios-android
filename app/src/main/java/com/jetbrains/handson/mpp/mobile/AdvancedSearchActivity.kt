@@ -19,20 +19,12 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
 
         private lateinit var presenter: AdvancedSearchPresenter
 
-        lateinit var textView: TextView
         var day = 0
         var month: Int = 0
         var year: Int = 0
         var hour: Int = 0
         var minute: Int = 0
-        var myDay = 0
-        var myMonth: Int = 0
-        var myYear: Int = 0
-        var myHour: Int = 0
-        var myMinute: Int = 0
         var timeChanged = false
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +60,6 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
             presenter.submitSearch(getNumAdults(), getNumChildren(), getDateInAPIFormat())
         }
 
-        textView = findViewById(R.id.in_date)
         val dateButton = findViewById<Button>(R.id.btn_date)
         dateButton.setOnClickListener {
             showDatePicker()
@@ -102,7 +93,7 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         finish()
     }
     private fun getDateInAPIFormat(): String {
-        return "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000"
+        return "$year-${makeNumberTwoDigits(month)}-${makeNumberTwoDigits(day)}T${makeNumberTwoDigits(hour)}:${makeNumberTwoDigits(minute)}:00.000"
     }
     private fun showDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
@@ -128,10 +119,10 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val numChildrenView = findViewById<TextView>(R.id.in_num_children)
         return (numChildrenView.text as String).toInt()
     }
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        myDay = dayOfMonth
-        myYear = year
-        myMonth = month+1
+    override fun onDateSet(view: DatePicker?, selectedYear: Int, selectedMonth: Int, selectedDay: Int) {
+        day = selectedDay
+        month = selectedMonth+1
+        year = selectedYear
         val calendar: Calendar = Calendar.getInstance()
         hour = calendar.get(Calendar.HOUR)
         minute = calendar.get(Calendar.MINUTE)
@@ -139,12 +130,13 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
             DateFormat.is24HourFormat(this))
         timePickerDialog.show()
     }
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        myHour = hourOfDay
-        myMinute = minute
-        val timeText = "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
+    override fun onTimeSet(view: TimePicker?, selectedHour: Int, selectedMinute: Int) {
+        hour = selectedHour
+        minute = selectedMinute
+        val timeText = "$day/${month}, $hour:${makeNumberTwoDigits(minute)}"
         timeChanged = true
-        textView.text = timeText
+        val timeView = findViewById<TextView>(R.id.in_date)
+        timeView.text = timeText
     }
     private fun makeNumberTwoDigits(number: Int): String {
         if (number.toString().length==1){
