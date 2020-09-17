@@ -23,7 +23,7 @@
         android:id="@+id/departure_spinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_text" />
@@ -49,42 +49,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/arrival_spinner" />
 
-    <Button
-        style="@style/MiniButton"
-        android:id="@+id/selected_time"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="gone"
-        tools:text="16/9, 9:30"
-        app:layout_constraintRight_toLeftOf="@id/selected_adults"
-        app:layout_constraintTop_toBottomOf="@+id/advanced_search" />
-    <Button
-        style="@style/MiniButton"
-        android:id="@+id/selected_adults"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        tools:text="3"
-        app:layout_constraintEnd_toEndOf="@id/advanced_search"
-        app:layout_constraintStart_toStartOf="@id/advanced_search"
-        app:layout_constraintTop_toBottomOf="@+id/advanced_search" />
-    <Button
-        style="@style/MiniButton"
-        android:id="@+id/selected_children"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="20dp"
-        android:visibility="gone"
-        tools:text="3"
-        app:layout_constraintLeft_toRightOf="@id/selected_adults"
-        app:layout_constraintTop_toBottomOf="@+id/advanced_search" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/results_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/advanced_search">
+        <Button
+            style="@style/MiniButton"
+            android:id="@+id/selected_time"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            tools:text="16/9, 9:30"
+            app:layout_constraintRight_toLeftOf="@id/selected_adults"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            style="@style/MiniButton"
+            android:id="@+id/selected_adults"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            tools:text="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            style="@style/MiniButton"
+            android:id="@+id/selected_children"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:visibility="gone"
+            tools:text="3"
+            app:layout_constraintLeft_toRightOf="@id/selected_adults"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <Button
         style="@style/StandardButton"
         android:id="@+id/button"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:text="@string/find_journeys_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/advanced_search"
+        app:layout_constraintTop_toBottomOf="@+id/results_bar"
         />
 
     <androidx.recyclerview.widget.RecyclerView
