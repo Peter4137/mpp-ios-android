@@ -9,6 +9,6 @@ interface AdvancedSearchContract {
 
     abstract class Presenter: CoroutineScope {
         abstract fun onViewTaken(view: View)
-
+        abstract fun stepValueXbyY(x: Int, y: Int): Int
     }
 }
