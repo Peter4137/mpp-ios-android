@@ -95,6 +95,24 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
         searchInformation.numChildren = numChildren
     }
 
+    override fun canClearAdults(): Boolean {
+        if (searchInformation.numChildren == 0) {
+            showZeroPassengersAlert()
+            return false
+        }
+        return true
+    }
+    override fun canClearChildren(): Boolean {
+        if (searchInformation.numAdults == 0) {
+            showZeroPassengersAlert()
+            return false
+        }
+        return true
+    }
+    private fun showZeroPassengersAlert() {
+        view!!.showAlertMessage("You cannot have 0 passengers")
+    }
+
     private fun buildStationDropdowns() {
         launch {
             val allStationDetails = getAllStationDetails()

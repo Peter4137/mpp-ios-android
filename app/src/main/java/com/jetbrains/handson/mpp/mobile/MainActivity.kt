@@ -46,15 +46,19 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
 
         val adultsButton = findViewById<Button>(R.id.selected_adults)
         adultsButton.setOnClickListener() {
-            presenter.setNumAdults(0)
-            adultsButton.visibility = View.INVISIBLE
-            searchButton.performClick()
+            if (presenter.canClearAdults()) {
+                presenter.setNumAdults(0)
+                adultsButton.visibility = View.INVISIBLE
+                searchButton.performClick()
+            }
         }
         val childrenButton = findViewById<Button>(R.id.selected_children)
         childrenButton.setOnClickListener() {
-            presenter.setNumChildren(0)
-            childrenButton.visibility = View.INVISIBLE
-            searchButton.performClick()
+            if (presenter.canClearChildren()) {
+                presenter.setNumChildren(0)
+                childrenButton.visibility = View.INVISIBLE
+                searchButton.performClick()
+            }
         }
         val departureTimeButton = findViewById<Button>(R.id.selected_time)
         departureTimeButton.setOnClickListener() {

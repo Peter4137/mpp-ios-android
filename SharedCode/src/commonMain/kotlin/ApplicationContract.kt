@@ -21,5 +21,7 @@ interface ApplicationContract {
         abstract fun setDepartureTime(departureTime: String)
         abstract fun setNumAdults(numAdults: Int)
         abstract fun setNumChildren(numChildren: Int)
+        abstract fun canClearAdults(): Boolean
+        abstract fun canClearChildren(): Boolean
     }
 }
