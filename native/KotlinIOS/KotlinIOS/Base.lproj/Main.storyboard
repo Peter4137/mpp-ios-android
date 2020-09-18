@@ -159,7 +159,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLx-rr-DjC">
-                                <rect key="frame" x="118" y="259" width="178" height="30"/>
+                                <rect key="frame" x="100" y="259" width="214" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="tintColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -260,7 +260,7 @@
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="top" secondItem="py2-Hc-Jwr" secondAttribute="bottom" constant="10" id="Bon-Oe-TVc"/>
                             <constraint firstItem="pbc-Bl-8vL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cjp-6O-dOo"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Cqn-mt-GoQ"/>
-                            <constraint firstItem="yLx-rr-DjC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="118" id="DGc-sH-7Tf"/>
+                            <constraint firstItem="yLx-rr-DjC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="DGc-sH-7Tf"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="Mg5-Jz-IOc" secondAttribute="leading" id="E8M-t3-x1t"/>
                             <constraint firstItem="Bvm-TJ-sDP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="11" id="FPD-j9-GpB"/>
                             <constraint firstItem="M65-Eh-iYD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GKW-d2-Tos"/>
@@ -279,7 +279,7 @@
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="5" id="obT-vO-fWd"/>
                             <constraint firstItem="Zgj-b2-LNN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="oiW-c9-9rY"/>
                             <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="Zgj-b2-LNN" secondAttribute="bottom" constant="12" id="sV0-0G-2Df"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yLx-rr-DjC" secondAttribute="trailing" constant="118" id="unP-Qm-3Ag"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yLx-rr-DjC" secondAttribute="trailing" constant="100" id="unP-Qm-3Ag"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="20" id="zhF-aH-M5e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
