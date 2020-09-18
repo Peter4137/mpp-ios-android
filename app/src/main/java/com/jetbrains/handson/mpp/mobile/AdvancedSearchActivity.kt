@@ -112,12 +112,12 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         month = calendar.get(Calendar.MONTH)
         year = calendar.get(Calendar.YEAR)
         val datePickerDialog =
-            DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
+            DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month, day)
         datePickerDialog.show()
     }
     private fun stepValueXbyY(x: Int, y: Int): Int {
         val newValue = x+y
-        if (newValue>=0){
+        if (newValue >= 0){
             return newValue
         }
         return x
