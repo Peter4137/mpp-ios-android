@@ -189,33 +189,41 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8P-1e-hVc">
-                                                    <rect key="frame" x="171" y="4.5" width="20" height="19"/>
+                                                    <rect key="frame" x="8" y="0.0" width="179" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="g8P-1e-hVc" secondAttribute="height" multiplier="1:1" id="Mec-S5-f8e"/>
+                                                        <constraint firstAttribute="height" constant="28" id="aO6-k9-114"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" backgroundImage="xmark.circle" catalog="system"/>
                                                     <connections>
                                                         <action selector="cancelButton:" destination="Hck-3v-sYE" eventType="touchUpInside" id="28X-WG-qEt"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8o-by-xcD">
-                                                    <rect key="frame" x="8" y="8" width="155" height="12"/>
+                                                    <rect key="frame" x="8" y="8" width="42" height="12"/>
                                                     <color key="backgroundColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="esx-F6-Vw6">
+                                                    <rect key="frame" x="167" y="0.5" width="28" height="27"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="esx-F6-Vw6" secondAttribute="height" multiplier="1:1" id="iAQ-XH-Zv0"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="g8P-1e-hVc" secondAttribute="trailing" constant="4" id="3cd-7A-AB4"/>
-                                                <constraint firstItem="g8P-1e-hVc" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" constant="4" id="CFQ-tr-anv"/>
+                                                <constraint firstItem="g8P-1e-hVc" firstAttribute="leading" secondItem="zvg-1Q-gvC" secondAttribute="leadingMargin" id="6Wn-5F-AUB"/>
                                                 <constraint firstItem="A8o-by-xcD" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" constant="8" id="PmU-k5-emE"/>
+                                                <constraint firstAttribute="trailing" secondItem="esx-F6-Vw6" secondAttribute="trailing" id="QF6-uj-BZb"/>
+                                                <constraint firstItem="esx-F6-Vw6" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" id="QPK-dZ-fWz"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="g8P-1e-hVc" secondAttribute="trailing" id="TIP-95-qW4"/>
                                                 <constraint firstItem="A8o-by-xcD" firstAttribute="leading" secondItem="zvg-1Q-gvC" secondAttribute="leading" constant="8" id="Z1H-yE-zJS"/>
                                                 <constraint firstAttribute="bottom" secondItem="A8o-by-xcD" secondAttribute="bottom" constant="8" id="izn-lc-o6o"/>
-                                                <constraint firstItem="g8P-1e-hVc" firstAttribute="leading" secondItem="A8o-by-xcD" secondAttribute="trailing" constant="8" id="z1s-hq-EOT"/>
-                                                <constraint firstAttribute="bottom" secondItem="g8P-1e-hVc" secondAttribute="bottom" constant="4" id="zw6-qN-d9P"/>
+                                                <constraint firstAttribute="bottom" secondItem="esx-F6-Vw6" secondAttribute="bottom" id="pgu-Pg-bj9"/>
+                                                <constraint firstItem="g8P-1e-hVc" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" id="u7c-jg-uNI"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="195" height="28"/>
