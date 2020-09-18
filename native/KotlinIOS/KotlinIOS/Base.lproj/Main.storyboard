@@ -189,9 +189,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8P-1e-hVc">
-                                                    <rect key="frame" x="8" y="0.0" width="179" height="28"/>
+                                                    <rect key="frame" x="137" y="0.0" width="50" height="28"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="aO6-k9-114"/>
+                                                        <constraint firstAttribute="width" constant="50" id="2GN-Mu-5r6"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <connections>
@@ -199,7 +199,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8o-by-xcD">
-                                                    <rect key="frame" x="8" y="8" width="42" height="12"/>
+                                                    <rect key="frame" x="8" y="4" width="42" height="20"/>
                                                     <color key="backgroundColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -215,13 +215,13 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstItem="g8P-1e-hVc" firstAttribute="leading" secondItem="zvg-1Q-gvC" secondAttribute="leadingMargin" id="6Wn-5F-AUB"/>
-                                                <constraint firstItem="A8o-by-xcD" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" constant="8" id="PmU-k5-emE"/>
+                                                <constraint firstAttribute="bottom" secondItem="g8P-1e-hVc" secondAttribute="bottom" id="1eA-4W-AZc"/>
+                                                <constraint firstItem="A8o-by-xcD" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" constant="4" id="PmU-k5-emE"/>
                                                 <constraint firstAttribute="trailing" secondItem="esx-F6-Vw6" secondAttribute="trailing" id="QF6-uj-BZb"/>
                                                 <constraint firstItem="esx-F6-Vw6" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" id="QPK-dZ-fWz"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="g8P-1e-hVc" secondAttribute="trailing" id="TIP-95-qW4"/>
                                                 <constraint firstItem="A8o-by-xcD" firstAttribute="leading" secondItem="zvg-1Q-gvC" secondAttribute="leading" constant="8" id="Z1H-yE-zJS"/>
-                                                <constraint firstAttribute="bottom" secondItem="A8o-by-xcD" secondAttribute="bottom" constant="8" id="izn-lc-o6o"/>
+                                                <constraint firstAttribute="bottom" secondItem="A8o-by-xcD" secondAttribute="bottom" constant="4" id="izn-lc-o6o"/>
                                                 <constraint firstAttribute="bottom" secondItem="esx-F6-Vw6" secondAttribute="bottom" id="pgu-Pg-bj9"/>
                                                 <constraint firstItem="g8P-1e-hVc" firstAttribute="top" secondItem="zvg-1Q-gvC" secondAttribute="top" id="u7c-jg-uNI"/>
                                             </constraints>
