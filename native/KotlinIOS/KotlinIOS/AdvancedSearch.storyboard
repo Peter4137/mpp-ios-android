@@ -45,7 +45,7 @@
                                             <constraint firstAttribute="height" constant="40" id="ENB-vJ-uPu"/>
                                             <constraint firstAttribute="width" constant="90" id="IFI-t3-Grw"/>
                                         </constraints>
-                                        <state key="normal" title="Apply">
+                                        <state key="normal" title="Search">
                                             <color key="titleColor" red="0.55442661049999997" green="0.89928728339999997" blue="0.77646487949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
@@ -76,7 +76,7 @@
                                             <action selector="incrementAdults:" destination="B1F-3u-t2C" eventType="valueChanged" id="3oJ-A3-cn4"/>
                                         </connections>
                                     </stepper>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-K9-Sfa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-K9-Sfa">
                                         <rect key="frame" x="120" y="78" width="40" height="30"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" none="YES"/>
@@ -109,7 +109,7 @@
                                             <action selector="incrementChildren:" destination="B1F-3u-t2C" eventType="valueChanged" id="Mfu-ga-7lo"/>
                                         </connections>
                                     </stepper>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM7-Ed-PDJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QM7-Ed-PDJ">
                                         <rect key="frame" x="120" y="128" width="40" height="30"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" none="YES"/>

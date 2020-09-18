@@ -4,7 +4,7 @@ import SharedCode
 
 class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView {
 
-    var delegate: advancedSearchDelegate?
+    var delegate: AdvancedSearchDelegate?
     private let presenter: AdvancedSearchPresenter = AdvancedSearchPresenter()
     
     @IBOutlet weak var applyButton: UIButton!
@@ -29,11 +29,10 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
     }
     
     @IBAction func incrementAdults(_ sender: Any) {
-        numberAdults.text = String(round(adultsStepper.value))
-        
+        numberAdults.text = String(format: "%d", Int(adultsStepper.value))
     }
     @IBAction func incrementChildren(_ sender: Any) {
-        numberChildren.text = String(round(childrenStepper.value))
+        numberChildren.text = String(format: "%d", Int(childrenStepper.value))
     }
     func showAlertMessage(alertMessage: String) {
         let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
@@ -41,8 +40,7 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
         self.present(alert, animated: true, completion: nil)
     }
     func submitAdvancedSearch() {
-        let dateString = formatDateAsString(date: datePicker.date)
-        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: dateString)
+        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: datePicker.date)
         dismiss(animated: true)
     }
     func formatDateAsString(date: Date) -> String {
@@ -52,7 +50,6 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
     }
 }
 
-protocol advancedSearchDelegate
-{
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String)
+protocol AdvancedSearchDelegate {
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date)
 }

@@ -3,17 +3,19 @@ import SharedCode
 
 
 
-class ViewController: UIViewController, ApplicationContractView, advancedSearchDelegate {
+class ViewController: UIViewController, ApplicationContractView {
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
     @IBOutlet private var label: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var advancedSearchCollectionView: UICollectionView!
     
     private let presenter: ApplicationContractPresenter = ApplicationPresenter()
     private var stationData: [String] = []
     private var departuresData: [DepartureInformation] = []
+    private var advancedSearchChoices: [AdvancedSearchCellInformation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +25,22 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
         self.arrivalPicker.delegate = self
         self.arrivalPicker.dataSource = self
         setupTableView()
+        setupAdvancedSearchCollectionView()
         tableView.isHidden = true
     }
     
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: String) {
-        presenter.setNumAdults(numAdults: Int32(numAdults))
-        presenter.setNumChildren(numChildren: Int32(numChildren))
-        presenter.setDepartureTime(departureTime: date)
+    func formatDateForAPI(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    func formatDateForDisplay(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd HH:mm"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
     
     @IBAction func showAdvancedSearch(_ sender: Any) {
@@ -40,6 +51,11 @@ class ViewController: UIViewController, ApplicationContractView, advancedSearchD
     }
     
     @IBAction func onJourneySelected(_ sender: Any) {
+        findJourneysPressed()
+    }
+    
+    
+    func findJourneysPressed() {
         tableView.isHidden = true
         activityIndicatorView.startAnimating()
         presenter.onButtonTapped()
@@ -128,6 +144,77 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0;//Choose your custom row height
+        return 80.0
+    }
+}
+
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func setupAdvancedSearchCollectionView() {
+        self.advancedSearchCollectionView.delegate = self
+        self.advancedSearchCollectionView.dataSource = self
+        self.advancedSearchCollectionView.register(AdvancedSearchViewCell.self, forCellWithReuseIdentifier: "cell")
+        self.advancedSearchCollectionView.reloadData()
+    }
+    
+    func populateAdvancedSearchCollection(choiceList: [AdvancedSearchCellInformation]) {
+        advancedSearchChoices = choiceList
+        advancedSearchCollectionView.reloadData()
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return advancedSearchChoices.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = advancedSearchCollectionView.dequeueReusableCell(withReuseIdentifier: "advancedSearchCell", for: indexPath) as! AdvancedSearchViewCell
+        cell.delegate = self
+        cell.choiceLabel!.text = advancedSearchChoices[indexPath.row].label
+        cell.dataType = advancedSearchChoices[indexPath.row].dataType
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidthEstimate = advancedSearchChoices[indexPath.row].label.count * 10 + 25
+        return CGSize(width: cellWidthEstimate, height: 28)
+    }
+
+}
+
+extension ViewController: AdvancedSearchDelegate {
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date) {
+        let adultsChoice = "Adults: " + String(numAdults)
+        let childrenChoice = "Children: " + String(numChildren)
+        let dateChoice = formatDateForDisplay(date: date)
+        populateAdvancedSearchCollection(choiceList: [
+            AdvancedSearchCellInformation(label: adultsChoice, dataType: cellDataType.adults),
+            AdvancedSearchCellInformation(label: childrenChoice, dataType: cellDataType.children),
+            AdvancedSearchCellInformation(label: dateChoice, dataType: cellDataType.date)
+                ])
+        presenter.setNumAdults(numAdults: Int32(numAdults))
+        presenter.setNumChildren(numChildren: Int32(numChildren))
+        presenter.setDepartureTime(departureTime: formatDateForAPI(date: date))
+        findJourneysPressed()
+    }
+}
+
+extension ViewController: AdvancedSearchCollectionDelegate {
+    func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell) {
+        let indexPath = advancedSearchCollectionView.indexPath(for: cell)
+        advancedSearchChoices.remove(at: indexPath!.row)
+        advancedSearchCollectionView.reloadData()
+        switch cell.dataType {
+        case .adults:
+            presenter.setNumAdults(numAdults: 0)
+        case .children:
+            presenter.setNumChildren(numChildren: 0)
+        case .date:
+            let timeNow = formatDateForAPI(date: Date())
+            presenter.setDepartureTime(departureTime: timeNow)
+        }
     }
 }
