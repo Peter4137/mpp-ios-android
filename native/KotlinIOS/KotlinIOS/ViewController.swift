@@ -3,7 +3,7 @@ import SharedCode
 
 
 
-class ViewController: UIViewController, ApplicationContractView, AdvancedSearchDelegate, AdvancedSearchCollectionDelegate {
+class ViewController: UIViewController, ApplicationContractView {
 
     @IBOutlet weak var departurePicker: UIPickerView!
     @IBOutlet weak var arrivalPicker: UIPickerView!
@@ -41,38 +41,6 @@ class ViewController: UIViewController, ApplicationContractView, AdvancedSearchD
         dateFormatter.dateFormat = "MM/dd HH:mm"
         let dateString = dateFormatter.string(from: date)
         return dateString
-    }
-    
-    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date) {
-        let adultsChoice = "Adults: " + String(numAdults)
-        let childrenChoice = "Children: " + String(numChildren)
-        let dateChoice = formatDateForDisplay(date: date)
-        populateAdvancedSearchCollection(choiceList: [
-                AdvancedSearchCellInformation(label: adultsChoice, dataType: "ADULTS"),
-                AdvancedSearchCellInformation(label: childrenChoice, dataType: "CHILDREN"),
-                AdvancedSearchCellInformation(label: dateChoice, dataType: "DATE")
-                ])
-        presenter.setNumAdults(numAdults: Int32(numAdults))
-        presenter.setNumChildren(numChildren: Int32(numChildren))
-        presenter.setDepartureTime(departureTime: formatDateForAPI(date: date))
-        findJourneysPressed()
-    }
-    
-    func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell) {
-        let indexPath = advancedSearchCollectionView.indexPath(for: cell)
-        advancedSearchChoices.remove(at: indexPath!.row)
-        advancedSearchCollectionView.reloadData()
-        switch cell.dataType {
-        case "ADULTS":
-            presenter.setNumAdults(numAdults: 0)
-        case "CHILDREN":
-            presenter.setNumChildren(numChildren: 0)
-        case "DATE":
-            let timeNow = formatDateForAPI(date: Date())
-            presenter.setDepartureTime(departureTime: timeNow)
-        default:
-            showAlertMessage(alertMessage: "Choice removed did not have valid identifier")
-        }
     }
     
     @IBAction func showAdvancedSearch(_ sender: Any) {
@@ -212,7 +180,47 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidthEstimate = advancedSearchChoices[indexPath.row].label.count * 10 + 25
-        return CGSize(width: cellWidthEstimate, height: 30)
+        return CGSize(width: cellWidthEstimate, height: 28)
     }
 
+}
+
+extension ViewController: AdvancedSearchDelegate {
+    func applyButtonPressed(numAdults: Int, numChildren: Int, date: Date) {
+        let adultsChoice = "Adults: " + String(numAdults)
+        let childrenChoice = "Children: " + String(numChildren)
+        let dateChoice = formatDateForDisplay(date: date)
+        populateAdvancedSearchCollection(choiceList: [
+            AdvancedSearchCellInformation(label: adultsChoice, dataType: cellDataType.adults),
+            AdvancedSearchCellInformation(label: childrenChoice, dataType: cellDataType.children),
+            AdvancedSearchCellInformation(label: dateChoice, dataType: cellDataType.date)
+                ])
+        presenter.setNumAdults(numAdults: Int32(numAdults))
+        presenter.setNumChildren(numChildren: Int32(numChildren))
+        presenter.setDepartureTime(departureTime: formatDateForAPI(date: date))
+        findJourneysPressed()
+    }
+}
+
+extension ViewController: AdvancedSearchCollectionDelegate {
+    func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell) {
+        let indexPath = advancedSearchCollectionView.indexPath(for: cell)
+        advancedSearchChoices.remove(at: indexPath!.row)
+        advancedSearchCollectionView.reloadData()
+        switch cell.dataType {
+        case .adults:
+            presenter.setNumAdults(numAdults: 0)
+        case .children:
+            presenter.setNumChildren(numChildren: 0)
+        case .date:
+            let timeNow = formatDateForAPI(date: Date())
+            presenter.setDepartureTime(departureTime: timeNow)
+        }
+    }
+}
+
+enum cellDataType {
+    case adults
+    case children
+    case date
 }

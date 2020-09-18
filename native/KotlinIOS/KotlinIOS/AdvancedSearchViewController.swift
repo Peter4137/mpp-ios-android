@@ -4,7 +4,7 @@ import SharedCode
 
 class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView {
 
-    var delegate: advancedSearchDelegate?
+    var delegate: AdvancedSearchDelegate?
     private let presenter: AdvancedSearchPresenter = AdvancedSearchPresenter()
     
     @IBOutlet weak var applyButton: UIButton!
@@ -41,8 +41,7 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
         self.present(alert, animated: true, completion: nil)
     }
     func submitAdvancedSearch() {
-        let dateString = formatDateAsString(date: datePicker.date)
-        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: dateString)
+        delegate?.applyButtonPressed(numAdults: Int(adultsStepper.value), numChildren: Int(childrenStepper.value), date: datePicker.date)
         dismiss(animated: true)
     }
     func formatDateAsString(date: Date) -> String {

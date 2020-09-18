@@ -3,7 +3,7 @@ import UIKit
 class AdvancedSearchViewCell: UICollectionViewCell {
     
     var delegate: AdvancedSearchCollectionDelegate?
-    var dataType: String = ""
+    var dataType: cellDataType = cellDataType.adults
     
     @IBOutlet weak var choiceLabel: UILabel!
     

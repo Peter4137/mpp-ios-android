@@ -63,7 +63,7 @@
                                 </userDefinedRuntimeAttributes>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pbc-Bl-8vL">
-                                <rect key="frame" x="0.0" y="376" width="414" height="496"/>
+                                <rect key="frame" x="0.0" y="380" width="414" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="0.0" bottom="8" trailing="4"/>
                                 <prototypes>
@@ -226,7 +226,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="py2-Hc-Jwr">
-                                <rect key="frame" x="78" y="333" width="258" height="33"/>
+                                <rect key="frame" x="78" y="337" width="258" height="33"/>
                                 <color key="backgroundColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="tintColor" red="0.63135527979999995" green="0.88852007769999997" blue="0.78458811620000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -270,7 +270,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zgj-b2-LNN" secondAttribute="trailing" constant="10" id="iV9-tU-aVs"/>
                             <constraint firstItem="Mg5-Jz-IOc" firstAttribute="top" secondItem="Bvm-TJ-sDP" secondAttribute="bottom" constant="5" id="obT-vO-fWd"/>
                             <constraint firstItem="Zgj-b2-LNN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="oiW-c9-9rY"/>
-                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="Zgj-b2-LNN" secondAttribute="bottom" constant="8" id="sV0-0G-2Df"/>
+                            <constraint firstItem="py2-Hc-Jwr" firstAttribute="top" secondItem="Zgj-b2-LNN" secondAttribute="bottom" constant="12" id="sV0-0G-2Df"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yLx-rr-DjC" secondAttribute="trailing" constant="118" id="unP-Qm-3Ag"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Bvm-TJ-sDP" secondAttribute="trailing" constant="20" id="zhF-aH-M5e"/>
                         </constraints>

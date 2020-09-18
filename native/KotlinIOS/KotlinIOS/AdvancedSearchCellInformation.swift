@@ -2,5 +2,5 @@ import Foundation
 
 struct AdvancedSearchCellInformation {
     var label: String
-    var dataType: String
+    var dataType: cellDataType
 }
