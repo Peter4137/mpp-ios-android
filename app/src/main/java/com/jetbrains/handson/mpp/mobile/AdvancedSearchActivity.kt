@@ -11,6 +11,7 @@ import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
+import com.soywiz.klock.DateTime
 import com.soywiz.klock.DateTimeTz
 import kotlinx.android.synthetic.main.activity_pop_up_window.*
 import java.util.*
@@ -100,12 +101,20 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         finish()
     }
     private fun getDateInAPIFormat(): String {
+        val apiDateFormat = com.soywiz.klock.DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+        return getTime(apiDateFormat)
+    }
+    private fun getTimeText(): String {
+        val userDisplayDateFormat = com.soywiz.klock.DateFormat("dd/MM, HH:mm")
+        return getTime(userDisplayDateFormat)
+    }
+    private fun getTime(dateTimeFormat: com.soywiz.klock.DateFormat): String {
         if (!timeChanged){
-            val dateTimeFormat = com.soywiz.klock.DateFormat("yyyy-MM-ddTHH:mm:ss.000")
             return DateTimeTz.nowLocal().format(dateTimeFormat)
         }
-        return "$myYear-${makeNumberTwoDigits(myMonth)}-${makeNumberTwoDigits(myDay)}T${makeNumberTwoDigits(myHour)}:${makeNumberTwoDigits(myMinute)}:00.000"
-    }
+        val newDateTime = DateTime(myYear, myMonth, myDay, myHour, myMinute)
+        return newDateTime.format(dateTimeFormat)
+   }
     private fun showDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
         day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -146,13 +155,6 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         myMinute = minute
         timeChanged = true
         textView.text = getTimeText()
-    }
-    private fun getTimeText(): String {
-        if (!timeChanged){
-            val dateTimeFormat = com.soywiz.klock.DateFormat("dd/mm, HH:mm")
-            return DateTimeTz.nowLocal().format(dateTimeFormat)
-        }
-        return "$myDay/${myMonth}, $myHour:${makeNumberTwoDigits(myMinute)}"
     }
     private fun makeNumberTwoDigits(number: Int): String {
         if (number.toString().length==1){
