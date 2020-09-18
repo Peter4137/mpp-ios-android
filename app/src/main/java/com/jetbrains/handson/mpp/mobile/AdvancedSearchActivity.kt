@@ -11,6 +11,8 @@ import android.text.format.DateFormat
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.TimePicker
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.DateTimeTz
 import kotlinx.android.synthetic.main.activity_pop_up_window.*
 import java.util.*
 
@@ -84,29 +86,38 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("numAdults", getNumAdults() )
         intent.putExtra("numChildren", getNumChildren())
-        if (timeChanged){
-            intent.putExtra("time", getDateInAPIFormat())
-        } else {
-            intent.putExtra("time", "Unset")
-        }
+        intent.putExtra("time", getDateInAPIFormat())
+        intent.putExtra("timeText", getTimeText())
         setResult(2, intent)
         finish()
     }
     private fun getDateInAPIFormat(): String {
-        return "$year-${makeNumberTwoDigits(month)}-${makeNumberTwoDigits(day)}T${makeNumberTwoDigits(hour)}:${makeNumberTwoDigits(minute)}:00.000"
+        val apiDateFormat = com.soywiz.klock.DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+        return getTime(apiDateFormat)
     }
+    private fun getTimeText(): String {
+        val userDisplayDateFormat = com.soywiz.klock.DateFormat("dd/MM, HH:mm")
+        return getTime(userDisplayDateFormat)
+    }
+    private fun getTime(dateTimeFormat: com.soywiz.klock.DateFormat): String {
+        if (!timeChanged){
+            return DateTimeTz.nowLocal().format(dateTimeFormat)
+        }
+        val newDateTime = DateTime(year, month, day, hour, minute)
+        return newDateTime.format(dateTimeFormat)
+   }
     private fun showDatePicker() {
         val calendar: Calendar = Calendar.getInstance()
         day = calendar.get(Calendar.DAY_OF_MONTH)
         month = calendar.get(Calendar.MONTH)
         year = calendar.get(Calendar.YEAR)
         val datePickerDialog =
-            DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month,day)
+            DatePickerDialog(this@AdvancedSearchActivity, this@AdvancedSearchActivity, year, month, day)
         datePickerDialog.show()
     }
     private fun stepValueXbyY(x: Int, y: Int): Int {
         val newValue = x+y
-        if (newValue>=0){
+        if (newValue >= 0){
             return newValue
         }
         return x
@@ -130,19 +141,13 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
             DateFormat.is24HourFormat(this))
         timePickerDialog.show()
     }
+
     override fun onTimeSet(view: TimePicker?, selectedHour: Int, selectedMinute: Int) {
         hour = selectedHour
         minute = selectedMinute
-        val timeText = "$day/${month}, $hour:${makeNumberTwoDigits(minute)}"
         timeChanged = true
         val timeView = findViewById<TextView>(R.id.in_date)
-        timeView.text = timeText
-    }
-    private fun makeNumberTwoDigits(number: Int): String {
-        if (number.toString().length==1){
-            return ("0$number")
-        }
-        return number.toString()
+        timeView.text = getTimeText()
     }
 }
 

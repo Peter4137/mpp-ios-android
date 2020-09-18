@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KotlinMPP</string>
-    <string name="search_button_label">Search</string>
+    <string name="find_journeys_button">Find Journeys</string>
     <string name="alert_message">Invalid choice</string>
     <string name="main_title">TrainBoard</string>
     <string name="advanced_search"><u>Advanced Search</u>.</string>
     <string name="select_time">SELECT TIME</string>
     <string name="time">Time:</string>
     <string name="number_of_adults">Number of Adults:</string>
-    <string name="number_of_children">Number of Children</string>
+    <string name="number_of_children">Number of Children:</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
 </resources>

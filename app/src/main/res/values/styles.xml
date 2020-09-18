@@ -18,6 +18,10 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="SubHeading" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
     <style name="Body" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
@@ -28,6 +32,15 @@
     </style>
     <style name="StandardButton" parent="TextAppearance.AppCompat">
         <item name="android:background">@drawable/button_shape</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+    <style name="MiniButton" parent="TextAppearance.AppCompat">
+        <item name="android:background">@drawable/mini_button_shape</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:drawableRight">@drawable/ic_baseline_cancel_24</item>
     </style>
 </resources>

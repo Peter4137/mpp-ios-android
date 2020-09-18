@@ -1,7 +1,5 @@
 package com.jetbrains.handson.mpp.mobile
 
-import com.soywiz.klock.DateFormat
-import com.soywiz.klock.DateTimeTz
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -44,6 +42,29 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
         advancedSearchButton.setOnClickListener {
             val intent = Intent(this, AdvancedSearchActivity::class.java)
             startActivityForResult(intent, 2)
+        }
+
+        val adultsButton = findViewById<Button>(R.id.selected_adults)
+        adultsButton.setOnClickListener() {
+            if (presenter.canClearAdults()) {
+                presenter.setNumAdults(0)
+                adultsButton.visibility = View.INVISIBLE
+                searchButton.performClick()
+            }
+        }
+        val childrenButton = findViewById<Button>(R.id.selected_children)
+        childrenButton.setOnClickListener() {
+            if (presenter.canClearChildren()) {
+                presenter.setNumChildren(0)
+                childrenButton.visibility = View.INVISIBLE
+                searchButton.performClick()
+            }
+        }
+        val departureTimeButton = findViewById<Button>(R.id.selected_time)
+        departureTimeButton.setOnClickListener() {
+            presenter.setDepartureTime(presenter.getTimeNow())
+            departureTimeButton.visibility = View.INVISIBLE
+            searchButton.performClick()
         }
 
         val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
@@ -136,14 +157,21 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             if (data != null) {
                 val numAdults = data.getIntExtra("numAdults",1)
                 presenter.setNumAdults(numAdults)
+                val adultsButton = findViewById<Button>(R.id.selected_adults)
+                adultsButton.text = "Adults: $numAdults"
+                adultsButton.visibility = View.VISIBLE
                 val numChildren = data.getIntExtra("numChildren", 0)
                 presenter.setNumChildren(numChildren)
+                val childrenButton = findViewById<Button>(R.id.selected_children)
+                childrenButton.text = "Children: $numChildren"
+                childrenButton.visibility = View.VISIBLE
                 departureTime = data.getStringExtra("time")
-                if (departureTime=="Unset"){
-                    val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-                    departureTime=DateTimeTz.nowLocal().format(dateTimeFormat)
-                }
                 presenter.setDepartureTime(departureTime)
+                val departureTimeButton = findViewById<Button>(R.id.selected_time)
+                departureTimeButton.text = data.getStringExtra("timeText")
+                departureTimeButton.visibility = View.VISIBLE
+                val searchButton = findViewById<Button>(R.id.button)
+                searchButton.performClick()
             }
         }
     }
