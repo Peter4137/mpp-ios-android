@@ -23,19 +23,14 @@ class AdvancedSearchPresenter: AdvancedSearchContract.Presenter() {
         val minNumPassengers = 1
         val totalPassengersSelected = numAdults + numChildren
 
-//        val today = DateTime.now()
-//        val inOneYear = DateTime.now() + 1.years
-//        val dateRange = today until inOneYear
-//        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-//        val dateAsDateTimeTz: DateTimeTz = dateTimeFormat.parse(date)
-//        val dateAsDateTime: DateTime = dateAsDateTimeTz.local
-//        val dateInFuture: Boolean = dateAsDateTime in dateRange
-
-        val dateInFuture = true //hardcoded until above fixed
+        val today = DateTime.now()
+        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+        val dateAsDateTimeTz: DateTimeTz = dateTimeFormat.parse(date)
+        val dateAsDateTime: DateTime = dateAsDateTimeTz.local
 
         if (minNumPassengers>totalPassengersSelected || totalPassengersSelected>maxNumPassengers) {
             view!!.showAlertMessage("Number of passengers must be between $minNumPassengers and $maxNumPassengers")
-        } else if (!dateInFuture) {
+        } else if (dateAsDateTime < today) {
             view!!.showAlertMessage("Departure time must be in the future")
         } else {
             view!!.submitAdvancedSearch()
