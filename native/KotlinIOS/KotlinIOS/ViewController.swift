@@ -85,11 +85,13 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         stationData = stationList
         setDepartureStation()
         self.departurePicker.reloadComponent(0)
+        setDepartureStation()
     }
     func setArrivalDropdown(stationList: Array<String>) {
         stationData = stationList
         setArrivalStation()
         self.arrivalPicker.reloadComponent(0)
+        setArrivalStation()
     }
 }
 
