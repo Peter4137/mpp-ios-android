@@ -5,7 +5,6 @@ import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.TimeSpan
 import com.soywiz.klock.parse
 import io.ktor.client.HttpClient
-import io.ktor.client.features.HttpTimeout
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
@@ -19,11 +18,12 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     private var view: ApplicationContract.View? = null
     private val job: Job = SupervisorJob()
 
+    private val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+    private val defaultTime: String = DateTimeTz.nowLocal().format(dateTimeFormat)
+    private var searchInformation = SearchInformation("", "", defaultTime, 1, 0)
+
     private val stationCodes = listOf("KGX", "WNS", "WKM", "GLD", "WOK")
     private val allStations = mutableListOf<StationInformation>()
-
-    private var chosenDepartureStation: String = ""
-    private var chosenArrivalStation: String = ""
 
     private val client = HttpClient() {
         install(JsonFeature) {
@@ -43,14 +43,20 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun onButtonTapped() {
-        if (chosenDepartureStation == chosenArrivalStation) {
+        if (searchInformation.departureStation == searchInformation.arrivalStation) {
             view!!.showAlertMessage("Stations cannot match")
             return
         }
-        val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
-        val timeNow: String = DateTimeTz.nowLocal().format(dateTimeFormat)
 
-        val apiCall = baseURL + "fares?originStation=$chosenDepartureStation&destinationStation=$chosenArrivalStation&noChanges=false&numberOfAdults=1&numberOfChildren=0&journeyType=single&outboundDateTime=$timeNow&outboundIsArriveBy=false"
+        val apiCall = baseURL + "fares?" +
+                "originStation=${searchInformation.departureStation}&" +
+                "destinationStation=${searchInformation.arrivalStation}&" +
+                "noChanges=false&" +
+                "numberOfAdults=${searchInformation.numAdults}&" +
+                "numberOfChildren=${searchInformation.numChildren}&" +
+                "journeyType=single&" +
+                "outboundDateTime=${searchInformation.departureTime}&" +
+                "outboundIsArriveBy=false"
 
         launch {
             try {
@@ -67,11 +73,23 @@ class ApplicationPresenter: ApplicationContract.Presenter() {
     }
 
     override fun setDepartureStation(departureStation: String) {
-        chosenDepartureStation = matchStationNameToCode(departureStation)
+        searchInformation.departureStation = matchStationNameToCode(departureStation)
+    }
+  
+    override fun setArrivalStation(arrivalStation: String) {
+        searchInformation.arrivalStation = matchStationNameToCode(arrivalStation)
     }
 
-    override fun setArrivalStation(arrivalStation: String) {
-        chosenArrivalStation = matchStationNameToCode(arrivalStation)
+    override fun setDepartureTime(departureTime: String) {
+        searchInformation.departureTime = departureTime
+    }
+
+    override fun setNumAdults(numAdults: Int) {
+        searchInformation.numAdults = numAdults
+    }
+
+    override fun setNumChildren(numChildren: Int) {
+        searchInformation.numChildren = numChildren
     }
 
     private fun buildStationDropdowns() {

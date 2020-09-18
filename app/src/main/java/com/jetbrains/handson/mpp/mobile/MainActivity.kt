@@ -1,10 +1,13 @@
 package com.jetbrains.handson.mpp.mobile
 
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTimeTz
 import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,21 +18,34 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private lateinit var departures: MutableList<DepartureInformation>
+    private lateinit var departureTime: String
+
+    private lateinit var presenter: ApplicationPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val presenter = ApplicationPresenter()
+        presenter = ApplicationPresenter()
         presenter.onViewTaken(this)
 
-        val button = findViewById<Button>(R.id.button)
+        setListeners()
+        setUpDeparturesTable()
+    }
 
-        button.setOnClickListener {
+    private fun setListeners() {
+        val searchButton = findViewById<Button>(R.id.button)
+        searchButton.setOnClickListener {
             showLoadingSpinner(true)
             presenter.onButtonTapped()
         }
-        
+
+        val advancedSearchButton = findViewById<TextView>(R.id.advanced_search)
+        advancedSearchButton.setOnClickListener {
+            val intent = Intent(this, AdvancedSearchActivity::class.java)
+            startActivityForResult(intent, 2)
+        }
+
         val departureSpinner = findViewById<Spinner>(R.id.departure_spinner)
         departureSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -45,10 +61,12 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
                 presenter.setArrivalStation(arrivalSpinner.getItemAtPosition(position) as String)
             }
         }
+    }
 
+    private fun setUpDeparturesTable() {
         departures = mutableListOf()
 
-        viewManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false)
+        viewManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewAdapter = TableAdapter(departures)
         recyclerView = findViewById<RecyclerView>(R.id.departures_table).apply {
             layoutManager = viewManager
@@ -111,4 +129,23 @@ class MainActivity : AppCompatActivity(), ApplicationContract.View {
             departuresTable.visibility = View.VISIBLE
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 2) {
+            if (data != null) {
+                val numAdults = data.getIntExtra("numAdults",1)
+                presenter.setNumAdults(numAdults)
+                val numChildren = data.getIntExtra("numChildren", 0)
+                presenter.setNumChildren(numChildren)
+                departureTime = data.getStringExtra("time")
+                if (departureTime=="Unset"){
+                    val dateTimeFormat = DateFormat("yyyy-MM-ddTHH:mm:ss.000")
+                    departureTime=DateTimeTz.nowLocal().format(dateTimeFormat)
+                }
+                presenter.setDepartureTime(departureTime)
+            }
+        }
+    }
+
 }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginStart="40dp"
+        android:text="@string/time"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/in_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/time"
+        app:layout_constraintLeft_toRightOf="@id/time"
+        app:layout_constraintTop_toTopOf="@id/time" />
+
+    <Button
+        android:id="@+id/btn_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_time"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/in_date"
+        app:layout_constraintLeft_toRightOf="@id/in_date"
+        app:layout_constraintTop_toTopOf="@id/in_date" />
+
+    <TextView
+        android:id="@+id/num_of_adults"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/number_of_adults"
+        app:layout_constraintLeft_toLeftOf="@id/time"
+        app:layout_constraintTop_toBottomOf="@id/time" />
+
+    <TextView
+        android:id="@+id/in_num_adults"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/num_of_adults"
+        app:layout_constraintLeft_toRightOf="@id/num_of_adults"
+        app:layout_constraintTop_toTopOf="@id/num_of_adults" />
+
+    <Button
+        android:id="@+id/add_num_adults"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/plus"
+        app:layout_constraintLeft_toRightOf="@id/in_num_adults"
+        app:layout_constraintTop_toTopOf="@id/in_num_adults"
+        app:layout_constraintBottom_toBottomOf="@id/in_num_adults"/>
+
+    <Button
+        android:id="@+id/minus_num_adults"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/minus"
+        app:layout_constraintTop_toTopOf="@id/add_num_adults"
+        app:layout_constraintBottom_toBottomOf="@id/add_num_adults"
+        app:layout_constraintLeft_toRightOf="@id/add_num_adults" />
+
+    <TextView
+        android:id="@+id/num_of_children"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/number_of_children"
+        app:layout_constraintLeft_toLeftOf="@id/num_of_adults"
+        app:layout_constraintTop_toBottomOf="@id/num_of_adults" />
+
+    <TextView
+        android:id="@+id/in_num_children"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/num_of_children"
+        app:layout_constraintLeft_toRightOf="@id/num_of_children"
+        app:layout_constraintTop_toTopOf="@id/num_of_children" />
+
+    <Button
+        android:id="@+id/add_num_children"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/plus"
+        app:layout_constraintLeft_toRightOf="@id/in_num_children"
+        app:layout_constraintTop_toTopOf="@id/in_num_children"
+        app:layout_constraintBottom_toBottomOf="@id/in_num_children"/>
+
+    <Button
+        android:id="@+id/minus_num_children"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="@string/minus"
+        app:layout_constraintTop_toTopOf="@id/add_num_children"
+        app:layout_constraintBottom_toBottomOf="@id/add_num_children"
+        app:layout_constraintLeft_toRightOf="@id/add_num_children" />
+
+    <Button
+        style="@style/StandardButton"
+        android:id="@+id/submit_advanced_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/search_button_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/num_of_children"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
