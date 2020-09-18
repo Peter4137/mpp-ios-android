@@ -47,7 +47,7 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
     }
     func formatDateAsString(date: Date) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.mmm"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000"
         return dateFormatter.string(from: date)
     }
 }
