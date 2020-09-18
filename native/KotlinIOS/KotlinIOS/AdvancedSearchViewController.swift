@@ -29,11 +29,10 @@ class AdvancedSearchViewController: UIViewController, AdvancedSearchContractView
     }
     
     @IBAction func incrementAdults(_ sender: Any) {
-        numberAdults.text = String(round(adultsStepper.value))
-        
+        numberAdults.text = String(format: "%d", Int(adultsStepper.value))
     }
     @IBAction func incrementChildren(_ sender: Any) {
-        numberChildren.text = String(round(childrenStepper.value))
+        numberChildren.text = String(format: "%d", Int(childrenStepper.value))
     }
     func showAlertMessage(alertMessage: String) {
         let alert = UIAlertController(title: "Error", message: alertMessage, preferredStyle: .alert)
