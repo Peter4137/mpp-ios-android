@@ -191,9 +191,9 @@ extension ViewController: AdvancedSearchDelegate {
         let childrenChoice = "Children: " + String(numChildren)
         let dateChoice = formatDateForDisplay(date: date)
         populateAdvancedSearchCollection(choiceList: [
+            AdvancedSearchCellInformation(label: dateChoice, dataType: cellDataType.date),
             AdvancedSearchCellInformation(label: adultsChoice, dataType: cellDataType.adults),
-            AdvancedSearchCellInformation(label: childrenChoice, dataType: cellDataType.children),
-            AdvancedSearchCellInformation(label: dateChoice, dataType: cellDataType.date)
+            AdvancedSearchCellInformation(label: childrenChoice, dataType: cellDataType.children)
                 ])
         presenter.setNumAdults(numAdults: Int32(numAdults))
         presenter.setNumChildren(numChildren: Int32(numChildren))
