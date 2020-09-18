@@ -218,9 +218,3 @@ extension ViewController: AdvancedSearchCollectionDelegate {
         }
     }
 }
-
-enum cellDataType {
-    case adults
-    case children
-    case date
-}
