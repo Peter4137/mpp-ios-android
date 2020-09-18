@@ -205,19 +205,21 @@ extension ViewController: AdvancedSearchDelegate {
 extension ViewController: AdvancedSearchCollectionDelegate {
     func removeAdvancedSearchChoice(cell: AdvancedSearchViewCell) {
         let indexPath = advancedSearchCollectionView.indexPath(for: cell)!
-        removeCellAtIndexPath(indexPath: indexPath)
         switch cell.dataType {
         case .adults:
             if (presenter.canClearAdults()) {
+                removeCellAtIndexPath(indexPath: indexPath)
                 presenter.setNumAdults(numAdults: 0)
             }
         case .children:
             if (presenter.canClearChildren()) {
+                removeCellAtIndexPath(indexPath: indexPath)
                 presenter.setNumChildren(numChildren: 0)
             }
         case .date:
             let timeNow = formatDateForAPI(date: Date())
             presenter.setDepartureTime(departureTime: timeNow)
+            removeCellAtIndexPath(indexPath: indexPath)
         }
     }
     
