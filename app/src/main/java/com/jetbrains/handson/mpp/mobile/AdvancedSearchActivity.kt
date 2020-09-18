@@ -149,11 +149,5 @@ class AdvancedSearchActivity : AppCompatActivity(), AdvancedSearchContract.View,
         val timeView = findViewById<TextView>(R.id.in_date)
         timeView.text = getTimeText()
     }
-    private fun makeNumberTwoDigits(number: Int): String {
-        if (number.toString().length==1){
-            return ("0$number")
-        }
-        return number.toString()
-    }
 }
 
